@@ -10,5 +10,7 @@ public class Main extends PApplet {
 	
 	public void draw(){
 		background(0,0,0);
+		ellipse(50, 50, 30, 20);
+		ellipse(150, 50, 30, 20);		
 	}
 }
