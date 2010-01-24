@@ -6,5 +6,6 @@ public interface Container {
 	
 	public void setSeperator(Seperator seperator, char direction);
 	public void draw();
+	public void update();
 	
 }
