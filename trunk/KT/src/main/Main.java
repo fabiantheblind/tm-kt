@@ -2,19 +2,85 @@ package main;
 
 import java.awt.Point;
 
+import com.modestmaps.geo.Location;
+import com.modestmaps.providers.Microsoft;
+
+import de.fhpotsdam.pmaps.PMap;
+import de.fhpotsdam.pmaps.interactions.KeyboardMapInteractionsHandler;
+import de.fhpotsdam.pmaps.interactions.MouseMapInteractionsHandler;
+import de.fhpotsdam.pmaps.utils.DebugDisplay;
+
+
 import processing.core.*;
 
 @SuppressWarnings("serial")
 public class Main extends PApplet {
+
+	/**
+	 * Beschreibung:
+	 * 
+	 * mögliche Einstellungen:
+	 * 	- Größe des Sketchs
+	 * 	- ...
+	 * 
+	 * next Steps:
+	 * 	- Layout (erstmal mit Tasten (1,2,.... )
+	 * 	- ShowableObjects ( bestehende anschauen und Bridge Pattern anwenden )
+	 * 		-> Möglichkeiten: draw/Begrenzung durch Seperatoren/isOver(für Interaktion/
+	 * 	- Maus durch TUIO erstetzen ( TUIO Finger )
+	 * 	- Tasten durch TUIO ersetzen ( TUIO Objects )
+	 * 	- proper band pass filter
+	 * 	- 
+	 * 
+	 * */
 	
-	Seperator top,left,buttom,right,separator[],active[];
-	int activeCount;
-	boolean down;
+	/** Ränder */
+	Seperator top,left,buttom,right;
+	/** alle bewegbaren und momentar zur Bewegung aktiven Trennlinien */
+	Seperator seperator[],active[];
 	
+	/** Kontrollattribute für die Steuerung*/
+	private int activeCount;
+	private boolean down;
+
+	// this is the only bit that's needed to show a map:
+	PMap pmap;
+	PMap pmap2;
+	DebugDisplay debugDisplay;
+
+	boolean gui = false;
+	int picNum = 1;
+
+	
+	PMapContainer c1,c2,c3;
 	
 	public void setup(){
-		size(800,600);
+		size(1000, 700, P3D);
+
+//		pmap = new PMap(this, 50, 50, 600, 400);
+//		MouseMapInteractionsHandler mih = new MouseMapInteractionsHandler(this);
+//		mih.setBoundingBox(50, 50, 600, 400);
+//		pmap.addInteractionsHandler(mih);
+//		pmap.addInteractionsHandler(new KeyboardMapInteractionsHandler(this));
+//		pmap.map.setMapProvider(new Microsoft.HybridProvider());
+//
+//		pmap2 = new PMap(this, 600, 100, 100, 100);
+//		pmap2.mapManipulation.zoom(2);
+//		pmap2.addInteractionsHandler(new MouseMapInteractionsHandler(this));
+//		pmap2.map.setMapProvider(new Microsoft.HybridProvider());
+//
+//		debugDisplay = new DebugDisplay(this, pmap.map, 10, 440, 260, 140);
+//
+//		// Set start point
+//		// Upper left corner of Scotland at map origin (center: "a" in "Wadden Sea")
+//		pmap.mapManipulation.panCenterTo(new Location(53.809f, 7.954f));
+//		pmap.mapManipulation.zoomToLevel(5);
+//		pmap2.mapManipulation.panCenterTo(new Location(53.809f, 7.954f));
+//		pmap2.mapManipulation.zoomToLevel(3);
+//		  
+//		
 		
+		/* Initialisierung der Ränder */
 		top = new Seperator(this);
 		top.setPoints(new Point(0,20), new Point(width,20));
 		top.vertical = false;
@@ -28,54 +94,83 @@ public class Main extends PApplet {
 		right.setPoints(new Point(width,20), new Point(width,height));
 		right.vertical = true;
 		
-		separator = new Seperator[4];
-		separator[0] = new Seperator(this,top,buttom);
-		separator[0].vertical = true;
-		separator[0].setPoints(new Point(400,20), new Point(400,600));
-		separator[1] = new Seperator(this,separator[0],right);
-		separator[1].vertical = false;
-		separator[1].setPoints(new Point(400,300), new Point(800,300));
-		separator[2] = new Seperator(this,separator[0],right);
-		separator[2].vertical = false;
-		separator[2].setPoints(new Point(400,500), new Point(800,500));
-		separator[3] = new Seperator(this,left,separator[0]);
-		separator[3].vertical = false;
-		separator[3].setPoints(new Point(0,100), new Point(400,100));
+		/* Initialisierung der innteren Trennlinien */
+		seperator = new Seperator[2];
+		seperator[0] = new Seperator(this,top,buttom);
+		seperator[0].vertical = true;
+		seperator[0].setPoints(new Point(400,20), new Point(400,600));
+		seperator[1] = new Seperator(this,seperator[0],right);
+		seperator[1].vertical = false;
+		seperator[1].setPoints(new Point(400,300), new Point(800,300));
+//		seperator[2] = new Seperator(this,seperator[0],right);
+//		seperator[2].vertical = false;
+//		seperator[2].setPoints(new Point(400,500), new Point(800,500));
+//		seperator[3] = new Seperator(this,left,seperator[0]);
+//		seperator[3].vertical = false;
+//		seperator[3].setPoints(new Point(0,100), new Point(400,100));
+
+		Seperator[] s4c1 = {top,left,buttom,seperator[0]};
+		c1 = new PMapContainer(this, s4c1,new MouseMapInteractionsHandler(this));
+		Seperator[] s4c2 = {top,seperator[0],seperator[1],right};
+		c2 = new PMapContainer(this, s4c2, new MouseMapInteractionsHandler(this));
+		Seperator[] s4c3 = {seperator[1],seperator[0],buttom,right};
+		c3 = new PMapContainer(this, s4c3, new MouseMapInteractionsHandler(this));
 		
+		c1.mapManipulation.panCenterTo(new Location(53.809f, 7.954f));
+		c1.mapManipulation.zoomToLevel(5);
+		c2.mapManipulation.panCenterTo(new Location(53.809f, 7.954f));
+		c2.mapManipulation.zoomToLevel(2);
+		c3.map.setMapProvider(new Microsoft.HybridProvider());
+		c3.mapManipulation.panCenterTo(new Location(53.809f, 7.954f));
+		c3.mapManipulation.zoomToLevel(2);
 		
 		
 	}
 	
 	public void draw(){
 		background(100,100,100);
+		
+
+//		pmap.draw();
+//		pmap.drawGreenBorder();
+//
+//		pmap2.draw();
+//		pmap2.drawGreenBorder();
+//
+//		debugDisplay.draw();
+		
+		c1.draw();
+		c2.draw();
+		c3.draw();
+		
+		/* Ränder ... */ 
 		top.draw();
 		left.draw();
 		buttom.draw();
 		right.draw();
-		
-		for (int i = 0; i < separator.length; i++) {
-			separator[i].draw();
+		/* .. und  Trennlinien zeichnen */
+		for (int i = 0; i < seperator.length; i++) {
+			seperator[i].draw();
 		}
 		
-
-	
 		
 	}
 	
 	@Override
 	public void mousePressed() {
 		down = true;
-		active = new Seperator[separator.length];
+		active = new Seperator[seperator.length];
 		activeCount = 0;
-		for (int i = 0; i < separator.length; i++) {
-			if(separator[i].isOver()){
-				active[activeCount++] = separator[i];
-				separator[i].active = true;
+		for (int i = 0; i < seperator.length; i++) {
+			if(seperator[i].isOver()){
+				active[activeCount++] = seperator[i];
+				seperator[i].active = true;
 			}
 		}
 	}
 	
 	@Override
+	
 	public void mouseDragged() {
 		if(!down)
 			return;
@@ -83,12 +178,6 @@ public class Main extends PApplet {
 		for (int i = 0; i < activeCount; i++) {
 			active[i].move(mouseX, mouseY);
 		}
-		/* funzt so nicht - blocken: jeder Seperator hat max 2 Stopper die er beim Move nicht übertreten darf!
-		for (int i = 0; i < separator.length; i++) {
-			if(separator[i].blocks()){
-				down = false;
-			}
-		}*/
 	}
 	
 	@Override
@@ -100,7 +189,6 @@ public class Main extends PApplet {
 		activeCount = 0;
 		down = false;
 	}
-	
 
 	
 }
