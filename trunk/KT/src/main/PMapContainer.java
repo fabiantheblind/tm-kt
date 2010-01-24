@@ -67,6 +67,10 @@ public class PMapContainer implements Container {
 		map.draw();
 	}
 	
+	public void update(){
+		
+	}
+	
 	public void setSeperator(Seperator seperator, char direction) {
 		switch(direction){
 		case 't':
