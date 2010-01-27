@@ -1,22 +1,27 @@
-package main;
+package utils;
+
+import java.util.ArrayList;
+
+import com.modestmaps.core.Point2f;
+import com.modestmaps.geo.Location;
+
+import layer.Layer;
 
 import processing.core.PApplet;
-
-import com.modestmaps.providers.OpenStreetMap;
-
-import de.fhpotsdam.pmaps.MapManipulation;
+import de.fhpotsdam.pmaps.PMap;
 import de.fhpotsdam.pmaps.interactions.MapInteractionsHandler;
 import de.fhpotsdam.pmaps.interactions.MouseMapInteractionsHandler;
-import de.fhpotsdam.pmaps.map.MaskedProcessingInteractiveMap;
 
 public class PMapContainer implements Container {
 
 	public static final String OSM_API_KEY = "607e6483654b5c47b9056791d607ab74";
 	public static final int OSM_STYLE_ID = 998;
 	protected Seperator t,l,b,r;
-	public MaskedProcessingInteractiveMap map;
-	public MapManipulation mapManipulation;
-	protected MouseMapInteractionsHandler mouse;
+
+	public PMap pmap;
+	
+	protected ArrayList<Layer> layers;
+	
 	protected PApplet p;
 	protected float x;
 	protected float y;
@@ -31,26 +36,23 @@ public class PMapContainer implements Container {
 	 * 
 	 * */
 	
-	public PMapContainer(PApplet p, Seperator[] seperators, MouseMapInteractionsHandler mouse) {
+	public PMapContainer(PApplet p, Seperator[] seperators) {
 		t = seperators[0];
 		l = seperators[1];
 		b = seperators[2];
 		r = seperators[3];
 		this.p = p;
-		this.mouse = mouse;
-		
 		
 		x = l.getX();
 		y = t.getY();
 		width = r.getX() - x;
 		height = b.getY() - y;
 		//
-		this.map =  new MaskedProcessingInteractiveMap(p, new OpenStreetMap.CloudmadeProvider(
-				OSM_API_KEY, OSM_STYLE_ID), x, y, width, height);
+		this.pmap =  new PMap(p,x,y,width,height);
 
-		mapManipulation = new MapManipulation(map);
-		mouse.setMapManipulation(mapManipulation);
-		mouse.setBoundingBox((int)x, (int)y, (int)width, (int)height);
+		pmap.addInteractionsHandler(new MouseMapInteractionsHandler(p));
+		pmap.setBoundingBox((int)x, (int)y, (int)width, (int)height);
+		layers = new ArrayList<Layer>();
 	}
 	
 	public void draw() {
@@ -60,11 +62,10 @@ public class PMapContainer implements Container {
 			width = r.getX() - x;
 			height = b.getY() - y;
 			
-			map.setMask(x, y, width, height);
-			mouse.setBoundingBox((int)x, (int)y, (int)width, (int)height);
+			pmap.setMask(x, y, width, height);
+			pmap.setBoundingBox((int)x, (int)y, (int)width, (int)height);
 		}
-		mapManipulation.updateMap();
-		map.draw();
+		pmap.draw();
 	}
 	
 	public void update(){
@@ -88,8 +89,16 @@ public class PMapContainer implements Container {
 		}
 	}
 	
+	public boolean isInside(int x,int y){
+		return pmap.isInsideBoundingBox(x, y);
+	}
+	
+	public Point2f locationPoint(Location loc){
+		return pmap.map.locationPoint(loc);
+	}
+	
 	public void addInteractionsHandler(MapInteractionsHandler handler) {
-		handler.setMapManipulation(mapManipulation);
+		pmap.addInteractionsHandler(handler);
 	}
 	
 	private boolean hasChanged(){
@@ -101,7 +110,4 @@ public class PMapContainer implements Container {
 			return false;
 		}	
 	}
-	
-	
-
 }

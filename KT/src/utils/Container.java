@@ -1,4 +1,7 @@
-package main;
+package utils;
+
+import com.modestmaps.core.Point2f;
+import com.modestmaps.geo.Location;
 
 public interface Container {
 	
@@ -7,5 +10,7 @@ public interface Container {
 	public void setSeperator(Seperator seperator, char direction);
 	public void draw();
 	public void update();
+	public boolean isInside(int x,int y);
+	public Point2f locationPoint(Location loc);
 	
 }
