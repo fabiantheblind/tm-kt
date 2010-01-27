@@ -129,12 +129,21 @@ public class Main extends PApplet {
 		c3.pmap.mapManipulation.panCenterTo(new Location(53.809f, 7.954f));
 		c3.pmap.mapManipulation.zoomToLevel(2);
 		
+		
+		/**Layer erstellen und ihnen 
+		 * die Container in denen sie gezeichnet werden soll hinzufügen.
+		 * Das Verwalten der Container steuert der AbstractLayer 
+		 * von dem WindMarkerManager und WeatherStationManager erben!
+		 * Erben = extends => sie können alles was der AbstractLayer kann.
+		 */
 		wsm = new WeatherStationManager(this);
 		wsm.init();
 		wsm.addContainer(c2);
+		wsm.addContainer(c3);
 		wmm = new WindMarkerManager(this,(WeatherStationManager)wsm);
 		wmm.init();
 		wmm.addContainer(c1);
+		wmm.addContainer(c3);
 		
 		
 	}

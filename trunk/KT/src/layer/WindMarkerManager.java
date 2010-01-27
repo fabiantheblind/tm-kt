@@ -8,7 +8,8 @@ import processing.xml.XMLElement;
 import com.modestmaps.geo.Location;
 
 public class WindMarkerManager extends AbstractLayer implements Layer{
-	
+	/**extends = erben => alles können was der AbstractLayer kann
+	 * muss dadurch selber nur noch die Listener an die WindMarker zum Zeichnen übergeben*/
 	//extended WeatherStationManager ??
 		
 		public ArrayList<WindMarker> windMarkerList;
@@ -17,6 +18,8 @@ public class WindMarkerManager extends AbstractLayer implements Layer{
 		
 		public WindMarkerManager(PApplet p,WeatherStationManager hereManager){
 			super(p);
+			//super = Aufruf des Konstruktors der Oberklasse 
+				// hier => super(p) = AbstractLayer(p)
 			windMarkerList = new ArrayList<WindMarker>();
 			this.hereManager = hereManager;
 		}
@@ -162,8 +165,8 @@ public class WindMarkerManager extends AbstractLayer implements Layer{
 		public void draw(){
 		
 			for(int i = 0; i<windMarkerList.size();i++){
-			//Point2f myPoint = map.locationPoint((Location)((WeatherStation)stationsList.get(i)).location);
-					((WindMarker)windMarkerList.get(i)).drawArrow(listener);
+					//beim Zeichnen die Container übergeben!
+					windMarkerList.get(i).drawArrow(listener);
 			}
 			
 			for(int j = 0; j < 20; j++){
