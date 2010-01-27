@@ -1,49 +1,40 @@
-package sketchTest;
+package layer;
 
-public class WindMarkerManager {
+import java.util.ArrayList;
+
+import processing.core.PApplet;
+import processing.xml.XMLElement;
+
+import com.modestmaps.geo.Location;
+
+public class WindMarkerManager extends AbstractLayer implements Layer{
 	
 	//extended WeatherStationManager ??
 		
-		public ArrayList windMarkerList;
+		public ArrayList<WindMarker> windMarkerList;
 		
-		public XMLElement oneWeatherStationXML;
-
-		public XMLElement xmlLat;
-		public XMLElement xmlLon;
-		public XMLElement xmlTemp_f;
-		public XMLElement xmlTemp_c;
-		public XMLElement xmlWind_degrees;
-		public XMLElement xmlWind_mph;
-	//  public XMLElement xmlRelative_humidity;
-
-		public String stringLat;
-		public String stringLon;
-		public String stringTemp_f;
-		public String stringTemp_c;
-		public String stringWind_degrees;
-		public String stringWind_mph;
-//		public String stringRelative_humidity;
-
-		public float floatLat;
-		public float floatLon;
-		public float floatTemp_f;
-		public float floatTemp_c;
-		public float floatWind_degrees;
-		public float floatWind_mph;
-//		public float floatRelative_humidity;
-
+		WeatherStationManager hereManager;
 		
-		WindMarkerManager(){
-			windMarkerList = new ArrayList();
+		public WindMarkerManager(PApplet p,WeatherStationManager hereManager){
+			super(p);
+			windMarkerList = new ArrayList<WindMarker>();
+			this.hereManager = hereManager;
 		}
 		
 		//println(WeatherStationManager.rssStation[5]);
 
-		public void init(WeatherStationManager hereManager){
+		public void init(){
 			
-			for (int i = 0; i<= 170; i++){
-							
-				oneWeatherStationXML = hereManager.rssStation[i];
+			XMLElement xmlLat, xmlLon, xmlTemp_f, xmlTemp_c, xmlWind_degrees, xmlWind_mph;
+		//  public XMLElement xmlRelative_humidity;
+
+			String stringLat, stringLon, stringTemp_f, stringTemp_c, stringWind_degrees, stringWind_mph;
+//			public String stringRelative_humidity;
+
+			float floatLat,  floatLon,  floatTemp_f,  floatTemp_c,  floatWind_degrees,  floatWind_mph;
+//			public float floatRelative_humidity;
+			
+			for (XMLElement oneWeatherStationXML : hereManager.rssStation){
 				
 				//XMLElement currentObs = oneWeatherStationXML.getChild("current_observation");
 				
@@ -160,7 +151,7 @@ public class WindMarkerManager {
 				
 				Location oneStationLocation = new Location(floatLat, floatLon);
 				
-				WindMarker myWindMarker  = new WindMarker(oneStationLocation, floatTemp_f, floatTemp_c, floatWind_degrees, floatWind_mph);
+				WindMarker myWindMarker  = new WindMarker(p,oneStationLocation, floatTemp_f, floatTemp_c, floatWind_degrees, floatWind_mph);
 				windMarkerList.add(myWindMarker);
 				
 				//println(floatTemp_f + " " + floatTemp_c + " " + floatWind_degrees + " " + floatWind_mph );
@@ -168,25 +159,25 @@ public class WindMarkerManager {
 			}		
 		}	
 		
-		public void drawWindMarkers(){
+		public void draw(){
 		
 			for(int i = 0; i<windMarkerList.size();i++){
 			//Point2f myPoint = map.locationPoint((Location)((WeatherStation)stationsList.get(i)).location);
-					((WindMarker)windMarkerList.get(i)).drawArrow();
+					((WindMarker)windMarkerList.get(i)).drawArrow(listener);
 			}
 			
 			for(int j = 0; j < 20; j++){
 				
-				noStroke();
-				fill(10,j*23,255);
-				rect(20, 84-j*4, 20, 4);
+				p.noStroke();
+				p.fill(10,j*23,255);
+				p.rect(20, 84-j*4, 20, 4);
 			}
 			
 			for(int k = 0; k < 20; k++){
 				
-				noStroke();
-				fill(180, k*23, 255);
-				rect(20, 84 + k * 4, 20, 4);
+				p.noStroke();
+				p.fill(180, k*23, 255);
+				p.rect(20, 84 + k * 4, 20, 4);
 			}
 		}	
 		
@@ -199,16 +190,16 @@ public class WindMarkerManager {
 			
 			for(int j = 0; j < 20; j++){
 				
-				noStroke();
-				fill(10,j*23,255);
-				rect(20, 84-j*4, 20, 4);
+				p.noStroke();
+				p.fill(10,j*23,255);
+				p.rect(20, 84-j*4, 20, 4);
 			}
 			
 			for(int k = 0; k < 20; k++){
 				
-				noStroke();
-				fill(180, k*23, 255);
-				rect(20, 84 + k * 4, 20, 4);
+				p.noStroke();
+				p.fill(180, k*23, 255);
+				p.rect(20, 84 + k * 4, 20, 4);
 			}
 		}
 	}

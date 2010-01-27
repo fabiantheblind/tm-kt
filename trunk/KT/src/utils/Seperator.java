@@ -1,21 +1,21 @@
-package main;
+package utils;
 
 import processing.core.PApplet;
 import java.awt.Point;
 
 public class Seperator {
-	PApplet main;
-	Point p1,p2;
-	Seperator neighbor[];
+	public PApplet main;
+	public Point p1,p2;
+	public Seperator neighbor[];
 	
-	boolean lock,active,vertical;	
+	public boolean lock,active,vertical;	
 	
 	public Seperator(PApplet main) {
 		this(main,null,null);
 		lock = true;
 	}
 	
-	Seperator(PApplet main,Seperator neighbor1,Seperator neighbor2){
+	public Seperator(PApplet main,Seperator neighbor1,Seperator neighbor2){
 		this.main = main;
 		this.neighbor = new Seperator[2];
 		this.neighbor[0] = neighbor1;

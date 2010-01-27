@@ -2,16 +2,18 @@ package main;
 
 import java.awt.Point;
 
+import layer.Layer;
+import layer.WeatherStationManager;
+import layer.WindMarkerManager;
+import processing.core.PApplet;
+import utils.PMapContainer;
+import utils.Seperator;
+
 import com.modestmaps.geo.Location;
 import com.modestmaps.providers.Microsoft;
 
 import de.fhpotsdam.pmaps.PMap;
-import de.fhpotsdam.pmaps.interactions.KeyboardMapInteractionsHandler;
-import de.fhpotsdam.pmaps.interactions.MouseMapInteractionsHandler;
 import de.fhpotsdam.pmaps.utils.DebugDisplay;
-
-
-import processing.core.*;
 
 @SuppressWarnings("serial")
 public class Main extends PApplet {
@@ -50,6 +52,9 @@ public class Main extends PApplet {
 
 	boolean gui = false;
 	int picNum = 1;
+	
+	Layer wsm,wmm;
+	
 
 	
 	PMapContainer c1,c2,c3;
@@ -110,19 +115,26 @@ public class Main extends PApplet {
 //		seperator[3].setPoints(new Point(0,100), new Point(400,100));
 
 		Seperator[] s4c1 = {top,left,buttom,seperator[0]};
-		c1 = new PMapContainer(this, s4c1,new MouseMapInteractionsHandler(this));
+		c1 = new PMapContainer(this, s4c1);
 		Seperator[] s4c2 = {top,seperator[0],seperator[1],right};
-		c2 = new PMapContainer(this, s4c2, new MouseMapInteractionsHandler(this));
+		c2 = new PMapContainer(this, s4c2);
 		Seperator[] s4c3 = {seperator[1],seperator[0],buttom,right};
-		c3 = new PMapContainer(this, s4c3, new MouseMapInteractionsHandler(this));
+		c3 = new PMapContainer(this, s4c3);
 		
-		c1.mapManipulation.panCenterTo(new Location(53.809f, 7.954f));
-		c1.mapManipulation.zoomToLevel(5);
-		c2.mapManipulation.panCenterTo(new Location(53.809f, 7.954f));
-		c2.mapManipulation.zoomToLevel(2);
-		c3.map.setMapProvider(new Microsoft.HybridProvider());
-		c3.mapManipulation.panCenterTo(new Location(53.809f, 7.954f));
-		c3.mapManipulation.zoomToLevel(2);
+		c1.pmap.mapManipulation.panCenterTo(new Location(53.809f, 7.954f));
+		c1.pmap.mapManipulation.zoomToLevel(5);
+		c2.pmap.mapManipulation.panCenterTo(new Location(53.809f, 7.954f));
+		c2.pmap.mapManipulation.zoomToLevel(2);
+		c3.pmap.map.setMapProvider(new Microsoft.HybridProvider());
+		c3.pmap.mapManipulation.panCenterTo(new Location(53.809f, 7.954f));
+		c3.pmap.mapManipulation.zoomToLevel(2);
+		
+		wsm = new WeatherStationManager(this);
+		wsm.init();
+		wsm.addContainer(c2);
+		wmm = new WindMarkerManager(this,(WeatherStationManager)wsm);
+		wmm.init();
+		wmm.addContainer(c1);
 		
 		
 	}
@@ -152,6 +164,9 @@ public class Main extends PApplet {
 		for (int i = 0; i < seperator.length; i++) {
 			seperator[i].draw();
 		}
+		
+		wsm.draw();
+		wmm.draw();
 		
 		
 	}
