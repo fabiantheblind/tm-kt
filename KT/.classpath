@@ -5,5 +5,7 @@
 	<classpathentry kind="lib" path="libraries/core.jar"/>
 	<classpathentry kind="lib" path="libraries/mimoa.jar"/>
 	<classpathentry kind="lib" path="libraries/mmmLib.jar"/>
+	<classpathentry kind="lib" path="libraries/opengl.jar"/>
+	<classpathentry kind="lib" path="libraries/glgraphics.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
