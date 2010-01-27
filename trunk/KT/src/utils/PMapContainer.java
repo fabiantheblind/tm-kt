@@ -97,6 +97,10 @@ public class PMapContainer implements Container {
 		return pmap.map.locationPoint(loc);
 	}
 	
+	public Location pointLocation(Point2f point){
+		return pmap.map.pointLocation(point);
+	}
+	
 	public void addInteractionsHandler(MapInteractionsHandler handler) {
 		pmap.addInteractionsHandler(handler);
 	}

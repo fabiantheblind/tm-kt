@@ -12,5 +12,6 @@ public interface Container {
 	public void update();
 	public boolean isInside(int x,int y);
 	public Point2f locationPoint(Location loc);
+	public Location pointLocation(Point2f point);
 	
 }
