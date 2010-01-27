@@ -2,6 +2,11 @@ package layer;
 
 import java.util.ArrayList;
 
+/**
+ * OberKlasse für die Layer(bisher alles Manager).
+ * Steuert das Verwalten der Container(Listener).
+ * */
+
 import processing.core.PApplet;
 
 import utils.Container;

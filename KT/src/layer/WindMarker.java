@@ -30,10 +30,12 @@ public class WindMarker {
 	}
 	
 	public void drawArrow(ArrayList<Container> listener) {
+		//jede Pfeil würd für jeden Container(Listener) extra gezeichnet
+		//aber nur wenn er sich gerade in der BoundingBox befindet(isInside).
 		for(Container container : listener ){
 			Point2f arrowPoint = container.locationPoint(theLocation);
     		if(!container.isInside((int)arrowPoint.x, (int)arrowPoint.y)){
-    			break;
+    			continue;
     		}
 			float arrowThickness = wind_mph/5;
 			p.smooth();

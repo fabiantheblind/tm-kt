@@ -28,11 +28,12 @@ public class WeatherStation{
 	}
 
     public void drawStation(ArrayList<Container> listener){
-    	
+		//jede Station würd für jeden Container(Listener) extra gezeichnet
+		//aber nur wenn sie sich gerade in der BoundingBox befindet.
     	for(Container container : listener){
     		Point2f point = container.locationPoint(location);
     		if(!container.isInside((int)point.x, (int)point.y)){
-    			break;
+    			continue;
     		}
         	p.smooth();
     		p.fill(0);
