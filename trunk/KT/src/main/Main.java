@@ -6,6 +6,7 @@ import layer.Layer;
 import layer.WeatherStationManager;
 import layer.WindMarkerManager;
 import processing.core.PApplet;
+//import processing.core.PConstants;
 import utils.PMapContainer;
 import utils.Seperator;
 
@@ -60,7 +61,7 @@ public class Main extends PApplet {
 	PMapContainer c1,c2,c3;
 	
 	public void setup(){
-		size(1000, 700, P3D);
+		size(960, 540, P3D);
 
 //		pmap = new PMap(this, 50, 50, 600, 400);
 //		MouseMapInteractionsHandler mih = new MouseMapInteractionsHandler(this);
@@ -99,7 +100,7 @@ public class Main extends PApplet {
 		right.setPoints(new Point(width,20), new Point(width,height));
 		right.vertical = true;
 		
-		/* Initialisierung der innteren Trennlinien */
+		/* Initialisierung der inneren Trennlinien */
 		seperator = new Seperator[2];
 		seperator[0] = new Seperator(this,top,buttom);
 		seperator[0].vertical = true;
