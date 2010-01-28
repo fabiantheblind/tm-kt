@@ -83,7 +83,7 @@
 //
 //	// Get the weatherstation .xml
 //		xmlWeathStations = new XMLElement(this, "CurrentWeatherStationsFeeds.xml");
-//		kmlConusFires = new XMLElement(this, "conus.kml");
+//		kmlConusFires = new XMLElement(this, "tangibleMapsMyConus.kml");
 //		kmlAirportsWorld =  new XMLElement(this, "AirportsOfTheWorld.kml");
 //		kmlCaCountysPoDes = new XMLElement(this, "caCountysPopDens.kml");
 //
