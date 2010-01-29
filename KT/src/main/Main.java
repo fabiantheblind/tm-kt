@@ -12,6 +12,7 @@ import processing.core.PApplet;
 //import processing.core.PConstants;
 import utils.PMapContainer;
 import utils.Seperator;
+import utils.Styles;
 
 import com.modestmaps.geo.Location;
 import com.modestmaps.providers.Microsoft;
@@ -64,13 +65,23 @@ public class Main extends PApplet {
 //	caam = California Airports Manager
 	Layer wsm,wmm,cfm, caam;
 	
+//	Create styles
+	Styles style;
+	
+	
 
 	
 	PMapContainer c1,c2,c3;
 	
 	public void setup(){
 		size(960, 540, P3D);
-
+		
+//		trying to create styles doesnt work
+//		style = new Styles(this);
+//		style.loadFonts();
+//		println(style.shdwOffset());
+		
+		
 //		pmap = new PMap(this, 50, 50, 600, 400);
 //		MouseMapInteractionsHandler mih = new MouseMapInteractionsHandler(this);
 //		mih.setBoundingBox(50, 50, 600, 400);
