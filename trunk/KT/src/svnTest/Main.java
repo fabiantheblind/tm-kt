@@ -28,15 +28,20 @@ public class Main extends PApplet {
 		int myX= width/2;
 		int myY = height/2;
 		background(0,0,0);
+//		disables all svg intern styles and passes only the paths
 		mySVG.disableStyle();
 		shapeMode(CENTER);
 		
 		fill(255,0,0);
+//		without a Coordiantes and width and height the Svg ist drawn at 0,0, with his own size
 		shape(mySVG);
 		fill(255,0,0,200);
+// 		with coordinates and without size it is drawn at the defined location in his own size
 		shape(mySVG,myX+5,myY+5);
 		fill(255,0,0,100);
+//		all Fields used Coordinates and width and height. 
 		shape(mySVG,myX+23,myY+23,mySVG.width-42,mySVG.height-42);
+		
 		mySVG.enableStyle();
 
 		
