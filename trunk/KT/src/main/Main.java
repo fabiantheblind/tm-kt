@@ -96,23 +96,23 @@ public class Main extends PApplet {
 		top.setPoints(new Point(0,20), new Point(width,20));
 		top.vertical = false;
 		left = new Seperator(this);
-		left.setPoints(new Point(0,20), new Point(0,height));
+		left.setPoints(new Point(0,0), new Point(0,height-20));
 		left.vertical = true;
 		buttom = new Seperator(this);
-		buttom.setPoints(new Point(0,height), new Point(width,height));
+		buttom.setPoints(new Point(0,height-42), new Point(width,height-42));
 		buttom.vertical = false;
 		right = new Seperator(this);
-		right.setPoints(new Point(width,20), new Point(width,height));
+		right.setPoints(new Point(width,20), new Point(width,height-42));
 		right.vertical = true;
 		
 		/* Initialisierung der inneren Trennlinien */
 		seperator = new Seperator[2];
 		seperator[0] = new Seperator(this,top,buttom);
 		seperator[0].vertical = true;
-		seperator[0].setPoints(new Point(400,20), new Point(400,600));
+		seperator[0].setPoints(new Point((width/3)*2,20), new Point((width/3)*2,height-42));
 		seperator[1] = new Seperator(this,seperator[0],right);
 		seperator[1].vertical = false;
-		seperator[1].setPoints(new Point(400,300), new Point(800,300));
+		seperator[1].setPoints(new Point((width/3)*2,300), new Point(width,300));
 //		seperator[2] = new Seperator(this,seperator[0],right);
 //		seperator[2].vertical = false;
 //		seperator[2].setPoints(new Point(400,500), new Point(800,500));
@@ -132,7 +132,7 @@ public class Main extends PApplet {
 		c1.pmap.map.setMapProvider(new OpenStreetMap.CloudmadeProvider(CLOUDMADE_API_KEY, CLOUDMADE_STYLE_ID));
 		c2.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
 		c2.pmap.mapManipulation.zoomToLevel(3);
-		c3.pmap.map.setMapProvider(new Microsoft.HybridProvider());
+		c3.pmap.map.setMapProvider(new Microsoft.RoadProvider());
 		c3.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
 		c3.pmap.mapManipulation.zoomToLevel(3);
 		

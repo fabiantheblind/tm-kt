@@ -61,9 +61,19 @@ public class ConusFiresManager extends AbstractLayer implements Layer {
 	
 	
 	public void draw(){
-		for(int i = 0; i<firesList.size();i++){
- 		((ConusFire)firesList.get(i)).drawFire(listener);
-	}
+			
+//			for identifying the different stages of the fire use
+//			   firesList.get(i).styleUrlStr.equals("#0_to_12hr_firePlacemark")
+//			|| firesList.get(i).styleUrlStr.equals("#12_to_24hr_firePlacemark")
+//			|| firesList.get(i).styleUrlStr.equals("#prev_6_days_firePlacemark")
+
+			for(int i = 0; i<firesList.size();i++){
+//				p.println(((ConusFire)firesList.get(i)).styleUrlStr);
+			if(firesList.get(i).styleUrlStr.equals("#0_to_12hr_firePlacemark")){
+				p.fill(255,255,0);
+	 		(firesList.get(i)).drawFire(listener);
+			}
+			}
 	}
 	
 	public void update(){
