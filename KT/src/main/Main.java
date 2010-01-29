@@ -76,10 +76,9 @@ public class Main extends PApplet {
 	public void setup(){
 		size(960, 540, P3D);
 		
-//		trying to create styles doesnt work
-//		style = new Styles(this);
-//		style.loadFonts();
-//		println(style.shdwOffset());
+		style = new Styles(this);
+		style.create();
+		println(style.shadowOffset);
 		
 		
 //		pmap = new PMap(this, 50, 50, 600, 400);
@@ -178,7 +177,7 @@ public class Main extends PApplet {
 	}
 	
 	public void draw(){
-		background(0);
+		background(style.colBG);
 		
 
 //		pmap.draw();
