@@ -12,7 +12,7 @@ public class Main extends PApplet {
 	
 	public void setup(){
 		size(800,800);
-		mySVG = loadShape("tmktSvgTest.svg");
+		mySVG = loadShape("../data/tmktSvgTest.svg");
 
 //		img = loadImage("../resource/studio.jpg");
 //		mask = new PImage(img.width,img.height); 
@@ -25,6 +25,8 @@ public class Main extends PApplet {
 	}
 	
 	public void draw(){
+		int myX= width/2;
+		int myY = height/2;
 		background(0,0,0);
 		mySVG.disableStyle();
 		shapeMode(CENTER);
@@ -32,9 +34,9 @@ public class Main extends PApplet {
 		fill(255,0,0);
 		shape(mySVG);
 		fill(255,0,0,200);
-		shape(mySVG,5,5);
+		shape(mySVG,myX+5,myY+5);
 		fill(255,0,0,100);
-		shape(mySVG,23,23,500,500);
+		shape(mySVG,myX+23,myY+23,mySVG.width-42,mySVG.height-42);
 		mySVG.enableStyle();
 
 		
