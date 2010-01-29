@@ -80,4 +80,7 @@ public class AirportsManager extends AbstractLayer implements Layer {
  		(airportList.get(i)).drawAirport(listener);
 	}	
 }
+	
+	public void update(){
+	}
 }
