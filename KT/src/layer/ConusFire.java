@@ -35,8 +35,9 @@ public class ConusFire{
 	    			continue;
 	    		}
 		p.smooth();
-	p.fill(255);
-	p.stroke(0);
+//	p.fill(255);
+//	p.stroke(0);
+		p.noStroke();
 //	Point2f myPoint = map.locationPoint(location);
 	p.ellipse(point.x, point.y, 10, 10);
 	//float tw = p.textWidth(styleUrlStr);
