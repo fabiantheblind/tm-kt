@@ -3,8 +3,10 @@ package main;
 import java.awt.Point;
 
 import layer.Layer;
+import layer.ConusFiresManager;
 import layer.WeatherStationManager;
 import layer.WindMarkerManager;
+
 import processing.core.PApplet;
 //import processing.core.PConstants;
 import utils.PMapContainer;
@@ -12,6 +14,7 @@ import utils.Seperator;
 
 import com.modestmaps.geo.Location;
 import com.modestmaps.providers.Microsoft;
+import com.modestmaps.providers.OpenStreetMap;
 
 import de.fhpotsdam.pmaps.PMap;
 import de.fhpotsdam.pmaps.utils.DebugDisplay;
@@ -54,7 +57,9 @@ public class Main extends PApplet {
 	boolean gui = false;
 	int picNum = 1;
 	
-	Layer wsm,wmm;
+	String CLOUDMADE_API_KEY = "65963b5e0821429da9f583d6f99f1da2";
+	int CLOUDMADE_STYLE_ID = 11786; // your style ID 
+	Layer wsm,wmm,cfm;
 	
 
 	
@@ -122,13 +127,14 @@ public class Main extends PApplet {
 		Seperator[] s4c3 = {seperator[1],seperator[0],buttom,right};
 		c3 = new PMapContainer(this, s4c3);
 		
-		c1.pmap.mapManipulation.panCenterTo(new Location(53.809f, 7.954f));
+		c1.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
 		c1.pmap.mapManipulation.zoomToLevel(5);
-		c2.pmap.mapManipulation.panCenterTo(new Location(53.809f, 7.954f));
-		c2.pmap.mapManipulation.zoomToLevel(2);
+		c1.pmap.map.setMapProvider(new OpenStreetMap.CloudmadeProvider(CLOUDMADE_API_KEY, CLOUDMADE_STYLE_ID));
+		c2.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
+		c2.pmap.mapManipulation.zoomToLevel(3);
 		c3.pmap.map.setMapProvider(new Microsoft.HybridProvider());
-		c3.pmap.mapManipulation.panCenterTo(new Location(53.809f, 7.954f));
-		c3.pmap.mapManipulation.zoomToLevel(2);
+		c3.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
+		c3.pmap.mapManipulation.zoomToLevel(3);
 		
 		
 		/**Layer erstellen und ihnen 
@@ -137,20 +143,23 @@ public class Main extends PApplet {
 		 * von dem WindMarkerManager und WeatherStationManager erben!
 		 * Erben = extends => sie können alles was der AbstractLayer kann.
 		 */
+		cfm =new  ConusFiresManager(this);
 		wsm = new WeatherStationManager(this);
+		cfm.init();
 		wsm.init();
 		wsm.addContainer(c2);
-		wsm.addContainer(c3);
+		cfm.addContainer(c3);
 		wmm = new WindMarkerManager(this,(WeatherStationManager)wsm);
+		
 		wmm.init();
 		wmm.addContainer(c1);
-		wmm.addContainer(c3);
+		//wmm.addContainer(c3);
 		
 		
 	}
 	
 	public void draw(){
-		background(100,100,100);
+		background(0);
 		
 
 //		pmap.draw();
@@ -177,7 +186,7 @@ public class Main extends PApplet {
 		
 		wsm.draw();
 		wmm.draw();
-		
+		cfm.draw();
 		
 	}
 	

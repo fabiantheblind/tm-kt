@@ -14,8 +14,8 @@ import de.fhpotsdam.pmaps.interactions.MouseMapInteractionsHandler;
 
 public class PMapContainer implements Container {
 
-	public static final String OSM_API_KEY = "607e6483654b5c47b9056791d607ab74";
-	public static final int OSM_STYLE_ID = 998;
+	public static final String OSM_API_KEY = "65963b5e0821429da9f583d6f99f1da2";
+	public static final int OSM_STYLE_ID = 11786;
 	protected Seperator t,l,b,r;
 
 	public PMap pmap;
