@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Point;
 
+import layer.AirportsManager;
 import layer.Layer;
 import layer.ConusFiresManager;
 import layer.WeatherStationManager;
@@ -59,7 +60,9 @@ public class Main extends PApplet {
 	
 	String CLOUDMADE_API_KEY = "65963b5e0821429da9f583d6f99f1da2";
 	int CLOUDMADE_STYLE_ID = 11786; // your style ID 
-	Layer wsm,wmm,cfm;
+//	cfm = Conus Fire Manager
+//	caam = California Airports Manager
+	Layer wsm,wmm,cfm, caam;
 	
 
 	
@@ -143,17 +146,22 @@ public class Main extends PApplet {
 		 * von dem WindMarkerManager und WeatherStationManager erben!
 		 * Erben = extends => sie können alles was der AbstractLayer kann.
 		 */
+		caam = new AirportsManager(this);
 		cfm =new  ConusFiresManager(this);
 		wsm = new WeatherStationManager(this);
 		cfm.init();
 		wsm.init();
+		caam.init();
+		caam.addContainer(c1);
 		wsm.addContainer(c2);
 		cfm.addContainer(c3);
+		
+		
 		wmm = new WindMarkerManager(this,(WeatherStationManager)wsm);
 		
 		wmm.init();
 		wmm.addContainer(c1);
-		//wmm.addContainer(c3);
+		wmm.addContainer(c3);
 		
 		
 	}
@@ -187,6 +195,8 @@ public class Main extends PApplet {
 		wsm.draw();
 		wmm.draw();
 		cfm.draw();
+//		doesnt work dont know why????
+//		caam.draw();
 		
 	}
 	
