@@ -14,6 +14,7 @@ public class ConusFire{
 	public PApplet p;
 	public String discrStr, styleUrlStr;
 	public Location location;
+//	public Style fireStyle;
 	
 	
 	ConusFire(PApplet p,float cLat,float cLon, String cDiscr,String cStyleUrl){
