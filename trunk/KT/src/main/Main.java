@@ -199,10 +199,10 @@ public class Main extends PApplet implements TuioListener{
 		wmm.addContainer(c1);
 		wmm.addContainer(c3);
 		
-		ps = new StationsManager(this, 1);
-		ps.init();
-		ps.addContainer(c2);
-		
+//		ps = new StationsManager(this, 1);
+//		ps.init();
+//		ps.addContainer(c2);
+//		
 		
 	}
 	
@@ -234,7 +234,7 @@ public class Main extends PApplet implements TuioListener{
 		wsm.draw();
 		wmm.draw();
 		cfm.draw();
-		ps.draw();
+//		ps.draw();
 //		doesnt work dont know why????
 //		caam.draw();
 		
