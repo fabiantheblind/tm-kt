@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="libraries/jogl.jar"/>
 	<classpathentry kind="lib" path="libraries/libTUIO.jar"/>
 	<classpathentry kind="lib" path="libraries/TUIO.jar"/>
+	<classpathentry kind="lib" path="libraries/poi-3.2-FINAL-20081019.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
