@@ -55,7 +55,7 @@ public class AirportsManager extends AbstractLayer implements Layer {
 					coordinates=points[m].getChildren("coordinates");
 					for (int n =0;n<=coordinates.length-1;n++){
 		        			latLonStringCoordinates= coordinates[n].getContent();
-		        			coordinateRawSplitter=p.split(latLonStringCoordinates,",");
+		        			coordinateRawSplitter=PApplet.split(latLonStringCoordinates,",");
 						Float lat = Float.parseFloat(coordinateRawSplitter[1]);
 						Float lon = Float.parseFloat(coordinateRawSplitter[0]);
 					//separate California by lat/lon values
@@ -76,8 +76,10 @@ public class AirportsManager extends AbstractLayer implements Layer {
 		}
 
 	public void draw(){
-	for(int i = 0; i<airportList.size();i++){
- 		(airportList.get(i)).drawAirport(listener);
+	for(int i = 0; i<airportCAList.size();i++){
+// 		System.out.println(airportCAList.get(i));
+ 		airportCAList.get(i).drawAirport(listener);
+	  
 	}	
 }
 	
