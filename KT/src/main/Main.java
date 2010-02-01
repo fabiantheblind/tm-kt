@@ -3,6 +3,7 @@ package main;
 import java.awt.Point;
 
 import layer.AirportsManager;
+import layer.ConusFiresManager;
 import layer.Layer;
 import layer.WeatherStationManager;
 import layer.WindMarkerManager;
