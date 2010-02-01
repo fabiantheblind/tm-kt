@@ -21,8 +21,8 @@ import de.fhpotsdam.pmaps.interactions.MouseMapInteractionsHandler;
 public class PMapContainer implements Container, TuioListener{
 	
 	protected float singleFingerOldX;
-	protected float singleFingerOldY;
-	private boolean down = true;
+	protected float singleFingerOldY,zoomMarkerOldY;
+	private boolean down = false;
 	protected int canvasWidth;
 	protected int canvasHeight;
 
@@ -58,8 +58,6 @@ public class PMapContainer implements Container, TuioListener{
 		this.p = p;
 		
 		client.addTuioListener(this);
-//		client.disconnect();
-//		client.connect();
 		
 		x = l.getX();
 		y = t.getY();
@@ -135,7 +133,10 @@ public class PMapContainer implements Container, TuioListener{
 		}	
 	}
 	
-	public void addTuioCursor(TuioCursor arg0) {
+	public void addTuioCursor(TuioCursor tuioCursor) {
+
+		float x = tuioCursor.getScreenX(p.width);
+		float y = tuioCursor.getScreenY(p.height);
 		if(!isInside((int)x, (int)y)){
 			return;
 		}
@@ -159,15 +160,35 @@ public class PMapContainer implements Container, TuioListener{
 		singleFingerOldY = y;
 	}
 	
-	public void removeTuioCursor(TuioCursor arg0) {
+	public void removeTuioCursor(TuioCursor tuioCursor) {
 		down = false;
 	}
 
 	public void addTuioObject(TuioObject tuioObject) {
-		PApplet.println("addTuioObject " + tuioObject.getSymbolID());
+		float x = tuioObject.getScreenX(p.width);
+		float y = tuioObject.getScreenY(p.height);
+		System.out.println(x+"/"+y);
+		if(!isInside((int)x, (int)y) || tuioObject.getSymbolID()!= 5){
+			return;
+		}
+		zoomMarkerOldY = y;
+		 
 	}
 
 	public void updateTuioObject(TuioObject tuioObject) {
+		float x = tuioObject.getScreenX(p.width);
+		float y = tuioObject.getScreenY(p.height);
+		System.out.println(x+"/"+y);
+		if(!isInside((int)x, (int)y) || tuioObject.getSymbolID()!= 5){
+			return;
+		}
+		if(x < zoomMarkerOldY-5 ){
+			pmap.mapManipulation.zoomIn();
+			zoomMarkerOldY = y;
+		}else if(x > zoomMarkerOldY+5){
+			pmap.mapManipulation.zoomOut();
+			zoomMarkerOldY = y;
+		}	
 	}
 
 	public void removeTuioObject(TuioObject tuioObject) {
@@ -177,5 +198,4 @@ public class PMapContainer implements Container, TuioListener{
 	public void refresh(TuioTime time){
 		
 	}
-
 }
