@@ -48,8 +48,11 @@ public class ConusFire{
 //	Point2f myPoint = map.locationPoint(location);
 		p.shapeMode(p.CENTER);
 		myFireIcon.disableStyle();
-		p.fill(Styles.col3);
-		p.shape(myFireIcon,point.x,point.y,11,11);
+		p.fill(Styles.fireCol);
+		p.stroke(Styles.kontur);
+		p.strokeWeight(Styles.strokeW);
+		
+		p.shape(myFireIcon,point.x,point.y,Styles.iconSize,Styles.iconSize);
 
 //	p.ellipse(point.x, point.y, 10, 10);
 	//float tw = p.textWidth(styleUrlStr);
