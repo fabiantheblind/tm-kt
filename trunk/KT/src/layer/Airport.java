@@ -1,6 +1,7 @@
 package layer;
 
 
+
 import java.util.ArrayList;
 
 import processing.core.PApplet;
@@ -43,7 +44,7 @@ public void drawAirport(ArrayList<Container> listener){
         p.stroke(0);
 //                Point2f point = map.locationPoint((Location)((WeatherStation)stationsList.get(i)).location);
 //                Point2f point = map.locationPoint(location);
-        		p.shape(myAirportIcon,point.x,point.y,10,10);
+        		p.shape(myAirportIcon,point.x,point.y,11,11);
 //                p.ellipse(point.x, point.y, 10, 10);
 //		float tw = p.textWidth(name);
 //		p.rect(point.x + 9, point.y - 21, tw + 6 , 18);

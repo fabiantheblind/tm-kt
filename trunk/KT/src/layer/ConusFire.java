@@ -15,9 +15,8 @@ public class ConusFire{
 	public String discrStr, styleUrlStr;
 	public Location location;
 //	public Style fireStyle;
-	PShape myFireIcon = p.loadShape("../data/fire.svg");
+	PShape myFireIcon;// = p.loadShape("../data/fire.svg");
 	
-//	Styles.createColors();
 	
 	ConusFire(PApplet p,float cLat,float cLon, String cDiscr,String cStyleUrl){
 		this(p,new Location(cLat,cLon),cDiscr,cStyleUrl);
@@ -34,7 +33,8 @@ public class ConusFire{
 	
 	
 	  public void drawFire(ArrayList<Container> listener){
-		//	myFireIcon = p.loadShape("../data/fire.svg");
+
+		myFireIcon = p.loadShape("../data/fire.svg");
 
 		   	for(Container container : listener){
 	    		Point2f point = container.locationPoint(location);
@@ -48,7 +48,7 @@ public class ConusFire{
 //	Point2f myPoint = map.locationPoint(location);
 		p.shapeMode(p.CENTER);
 		myFireIcon.disableStyle();
-		p.fill(5,5,5,250);
+		p.fill(Styles.col3);
 		p.shape(myFireIcon,point.x,point.y,11,11);
 
 //	p.ellipse(point.x, point.y, 10, 10);

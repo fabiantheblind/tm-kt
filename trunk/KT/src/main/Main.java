@@ -85,7 +85,6 @@ public class Main extends PApplet implements TuioListener{
 //	caam = California Airports Manager
 	Layer wsm,wmm,cfm, caam;
 	
-//	Create styles
  
 	
 	
@@ -94,8 +93,9 @@ public class Main extends PApplet implements TuioListener{
 	PMapContainer c1,c2,c3;
 	
 	public void setup(){
-		
-//		Styles.createColors();
+	Styles.setPApplet(this);
+	Styles.createColors();
+	Styles.createFont();
 
 //		size(1920, 1080, GLConstants.GLGRAPHICS );
 
@@ -202,7 +202,7 @@ public class Main extends PApplet implements TuioListener{
 	}
 	
 	public void draw(){
-		background(0);
+		background(Styles.colBG);
 		
 
 //		pmap.draw();

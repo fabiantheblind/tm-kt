@@ -5,29 +5,38 @@ import processing.core.PFont;
 
 public class Styles {
 	
-	static PApplet p;
-	static PFont calibri14Reg;
-	static 	PFont calibri18Reg;
-	static 	PFont calibri24Reg;
-	static 	PFont calibri36Reg;
-	static 	PFont calibri14RegBld;
-	static 	PFont calibri18RegBld;
-	static 	PFont calibri24RegBld;
-	static 	PFont calibri36RegBld;
-	static 	int col1;
-	static 	int col2; 
-	static 	int col3;
-	static 	int col4;
-	static 	int colBG;
-	static int colShadow;
-	static int kontur;
-	static int textColor;
-	static float shadowOffset;
+	public static PApplet p;
+	public static PFont calibri14Reg;
+	public static 	PFont calibri18Reg;
+	public static 	PFont calibri24Reg;
+	public static 	PFont calibri36Reg;
+	public static 	PFont calibri14RegBld;
+	public static 	PFont calibri18RegBld;
+	public static 	PFont calibri24RegBld;
+	public static 	PFont calibri36RegBld;
+	public static int col1;
+	public static int col2; 
+	public static int col3;
+	public static int col4;
+	public static int colBG;
+	public static int colShadow;
+	public static int kontur;
+	public static int textColor;
+	public static float shadowOffset;
 //	public float r ;
 //	public float g ;
 //	public float b ;
 
+	
+	
+	public static void setPApplet(PApplet _p){
+		p = _p;
+	 }
 
+//	 public static void setPApplet(PApplet p){
+//		this.p = p;
+//		}
+	
 	
 	public static void createColors(){
 	col1 = p.color(33,33,33,255);
@@ -42,7 +51,7 @@ public class Styles {
 	
 }
 
-	static void createFont(){
+	public static void createFont(){
 	calibri14Reg = p.loadFont("../data/Calibri-14.vlw");
 	calibri18Reg= p.loadFont("../data/Calibri-18.vlw");
 	calibri24Reg= p.loadFont("../data/Calibri-24.vlw");
@@ -55,7 +64,7 @@ public class Styles {
 	
 }
 
-	static void myEllipse(float xPos, float yPos, float diam,float myStrokeWeight, String myText,Boolean shadow){
+	public static void myEllipse(float xPos, float yPos, float diam,float myStrokeWeight, String myText,Boolean shadow){
 	p.smooth();
 	p.rectMode(p.CORNER);
 	p.ellipseMode(p.CENTER);
