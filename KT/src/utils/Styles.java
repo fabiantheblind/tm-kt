@@ -5,34 +5,31 @@ import processing.core.PFont;
 
 public class Styles {
 	
-	public PApplet p;
-	public PFont calibri14Reg;
-	public 	PFont calibri18Reg;
-	public 	PFont calibri24Reg;
-	public 	PFont calibri36Reg;
-	public 	PFont calibri14RegBld;
-	public 	PFont calibri18RegBld;
-	public 	PFont calibri24RegBld;
-	public 	PFont calibri36RegBld;
-	public 	int col1;
-	public 	int col2; 
-	public 	int col3;
-	public 	int col4;
-	public 	int colBG;
-	public int colShadow;
-	public int kontur;
-	public int textColor;
-	public float shadowOffset;
+	static PApplet p;
+	static PFont calibri14Reg;
+	static 	PFont calibri18Reg;
+	static 	PFont calibri24Reg;
+	static 	PFont calibri36Reg;
+	static 	PFont calibri14RegBld;
+	static 	PFont calibri18RegBld;
+	static 	PFont calibri24RegBld;
+	static 	PFont calibri36RegBld;
+	static 	int col1;
+	static 	int col2; 
+	static 	int col3;
+	static 	int col4;
+	static 	int colBG;
+	static int colShadow;
+	static int kontur;
+	static int textColor;
+	static float shadowOffset;
 //	public float r ;
 //	public float g ;
 //	public float b ;
-	public Styles(PApplet p){
-		this.p = p;
-		
-	}
+
 
 	
-public void create(){
+	public static void createColors(){
 	col1 = p.color(33,33,33,255);
 	col2 = p.color(93,93,92,255); 
 	col3 = p.color(222,222,222,255);
@@ -41,6 +38,11 @@ public void create(){
 	colShadow  = p.color(5,5,5,128);
 	kontur = p.color(p.red(col1)+42,p.green(col1)+42,p.blue(col1)+42,200);;
 	textColor = p.color(255,255,255,250);
+	shadowOffset = 2.5f;
+	
+}
+
+	static void createFont(){
 	calibri14Reg = p.loadFont("../data/Calibri-14.vlw");
 	calibri18Reg= p.loadFont("../data/Calibri-18.vlw");
 	calibri24Reg= p.loadFont("../data/Calibri-24.vlw");
@@ -53,8 +55,7 @@ public void create(){
 	
 }
 
-
-public void Ellipse(float xPos, float yPos, float diam,float myStrokeWeight, String myText,Boolean shadow){
+	static void myEllipse(float xPos, float yPos, float diam,float myStrokeWeight, String myText,Boolean shadow){
 	p.smooth();
 	p.rectMode(p.CORNER);
 	p.ellipseMode(p.CENTER);
