@@ -97,8 +97,7 @@ public class Main extends PApplet implements TuioListener{
 	
 	public void setup(){
 	Styles.setPApplet(this);
-	Styles.createColors();
-	Styles.createFont();
+	Styles.create();
 
 //		size(1920, 1080, GLConstants.GLGRAPHICS );
 
