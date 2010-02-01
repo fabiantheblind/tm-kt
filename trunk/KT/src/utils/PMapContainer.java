@@ -28,6 +28,8 @@ public class PMapContainer implements Container {
 	protected float width;
 	protected float height;
 	
+	public boolean isActive = true;
+	
 	/**
 	 * seperator[0] = t
 	 * seperator[1] = l
@@ -56,6 +58,8 @@ public class PMapContainer implements Container {
 	}
 	
 	public void draw() {
+		if(!isActive)
+			return;
 		if(hasChanged()){
 			x = l.getX();
 			y = t.getY();
