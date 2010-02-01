@@ -86,7 +86,7 @@ public class Main extends PApplet implements TuioListener{
 	Layer wsm,wmm,cfm, caam;
 	
 //	Create styles
-	Styles style;
+ 
 	
 	
 	TuioClient tuioClient;
@@ -94,6 +94,9 @@ public class Main extends PApplet implements TuioListener{
 	PMapContainer c1,c2,c3;
 	
 	public void setup(){
+		
+//		Styles.createColors();
+
 //		size(1920, 1080, GLConstants.GLGRAPHICS );
 
 		size(SIZE_X, SIZE_Y, P3D);
@@ -101,9 +104,6 @@ public class Main extends PApplet implements TuioListener{
 		tuioClient.addTuioListener(this);
 		tuioClient.connect();
 
-		style = new Styles(this);
-		style.create();
-		println(style.shadowOffset);
 		
 		
 //		pmap = new PMap(this, 50, 50, 600, 400);
@@ -170,7 +170,7 @@ public class Main extends PApplet implements TuioListener{
 		c1.pmap.map.setMapProvider(new OpenStreetMap.CloudmadeProvider(CLOUDMADE_API_KEY, CLOUDMADE_STYLE_ID));
 		c2.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
 		c2.pmap.mapManipulation.zoomToLevel(3);
-		c3.pmap.map.setMapProvider(new Microsoft.RoadProvider());
+		c3.pmap.map.setMapProvider(new Microsoft.HybridProvider());
 		c3.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
 		c3.pmap.mapManipulation.zoomToLevel(3);
 		
@@ -202,7 +202,7 @@ public class Main extends PApplet implements TuioListener{
 	}
 	
 	public void draw(){
-		background(style.colBG);
+		background(0);
 		
 
 //		pmap.draw();
