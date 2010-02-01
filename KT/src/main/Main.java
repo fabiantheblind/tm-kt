@@ -4,7 +4,6 @@ import java.awt.Point;
 
 import layer.AirportsManager;
 import layer.Layer;
-import layer.ConusFiresManager;
 import layer.WeatherStationManager;
 import layer.WindMarkerManager;
 
@@ -14,8 +13,15 @@ import utils.PMapContainer;
 import utils.Seperator;
 import utils.Styles;
 
+import TUIO.TuioCursor;
+import TUIO.TuioObject;
+
+import codeanticode.glgraphics.GLConstants;
+import codeanticode.glgraphics.GLGraphics;
+
 import com.modestmaps.geo.Location;
 import com.modestmaps.providers.Microsoft;
+import com.sun.opengl.impl.GLContextLock;
 import com.modestmaps.providers.OpenStreetMap;
 
 import de.fhpotsdam.pmaps.PMap;
@@ -40,6 +46,13 @@ public class Main extends PApplet {
 	 * 	- proper band pass filter
 	 * 	- 
 	 * 
+	 * */
+	
+	/**
+	 * Polygone mit Pete
+	 * Straﬂen
+	 * FireArea
+	 * Layoutwechsel
 	 * */
 	
 	/** R‰nder */
@@ -74,6 +87,8 @@ public class Main extends PApplet {
 	PMapContainer c1,c2,c3;
 	
 	public void setup(){
+//		size(1920, 1080, GLConstants.GLGRAPHICS );
+
 		size(960, 540, P3D);
 		
 		style = new Styles(this);
@@ -109,23 +124,23 @@ public class Main extends PApplet {
 		top.setPoints(new Point(0,20), new Point(width,20));
 		top.vertical = false;
 		left = new Seperator(this);
-		left.setPoints(new Point(0,0), new Point(0,height-20));
+		left.setPoints(new Point(0,20), new Point(0,height));
 		left.vertical = true;
 		buttom = new Seperator(this);
-		buttom.setPoints(new Point(0,height-42), new Point(width,height-42));
+		buttom.setPoints(new Point(0,height), new Point(width,height));
 		buttom.vertical = false;
 		right = new Seperator(this);
-		right.setPoints(new Point(width,20), new Point(width,height-42));
+		right.setPoints(new Point(width,20), new Point(width,height));
 		right.vertical = true;
 		
-		/* Initialisierung der inneren Trennlinien */
+		/* Initialisierung der innteren Trennlinien */
 		seperator = new Seperator[2];
 		seperator[0] = new Seperator(this,top,buttom);
 		seperator[0].vertical = true;
-		seperator[0].setPoints(new Point((width/3)*2,20), new Point((width/3)*2,height-42));
+		seperator[0].setPoints(new Point(400,20), new Point(400,600));
 		seperator[1] = new Seperator(this,seperator[0],right);
 		seperator[1].vertical = false;
-		seperator[1].setPoints(new Point((width/3)*2,300), new Point(width,300));
+		seperator[1].setPoints(new Point(400,300), new Point(800,300));
 //		seperator[2] = new Seperator(this,seperator[0],right);
 //		seperator[2].vertical = false;
 //		seperator[2].setPoints(new Point(400,500), new Point(800,500));
@@ -224,7 +239,6 @@ public class Main extends PApplet {
 	}
 	
 	@Override
-	
 	public void mouseDragged() {
 		if(!down)
 			return;
@@ -242,6 +256,54 @@ public class Main extends PApplet {
 		active = null;
 		activeCount = 0;
 		down = false;
+	}
+	
+	public void keyPressed(){
+		switch(key){
+			case '1':
+				c2.isActive = false;
+				c3.isActive = false;
+				seperator[0].setPoints(new Point(width,20), new Point(width,height));
+				seperator[1].setPoints(new Point(400,height), new Point(800,height));
+				break;
+			case '2':
+				c2.isActive=true;
+				c3.isActive = false;
+				seperator[0].setPoints(new Point((int)(width*0.75),20), new Point((int)(width*0.75),height));
+				seperator[1].setPoints(new Point(400,height), new Point(800,height));
+				break;
+			case '3':
+				c2.isActive = true;
+				c3.isActive = true;
+				seperator[0].setPoints(new Point((int)(width*0.75),20), new Point((int)(width*0.75),height));
+				seperator[1].setPoints(new Point((int)(width*0.75),height/2), new Point(800,height/2));
+				break;
+		}
+	}
+	
+	public void addTuioObject(TuioObject tObj){
+		System.out.println("add obj with id="+tObj.getSymbolID());
+		if(tObj.getSymbolID()<3){
+//			type[tObj.getSymbolID()]=true;
+		}
+	}
+	public void removeTuioObject(TuioObject tObj){
+		System.out.println("rem obj with id="+tObj.getSymbolID());
+		if(tObj.getSymbolID()<3){
+//			type[tObj.getSymbolID()]=false;
+		}
+	}
+	public void updateTuioObject(TuioObject tObj){
+//		System.out.println("update obj");
+	}
+	public void addTuioCursor(TuioCursor tCur){
+//		System.out.println("add cur");		
+	}
+	public void removeTuioCursor(TuioCursor tCur){
+//		System.out.println("rem cur");			
+		}
+	public void updateTuioCursor(TuioCursor tCur){
+//		System.out.println("update cur");		
 	}
 
 	
