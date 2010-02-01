@@ -22,7 +22,19 @@ public class Styles {
 	public static int colShadow;
 	public static int kontur;
 	public static int textColor;
+	
+	public static int fireCol;
+	public static int policeCol;
+	public static int fireStCol;
+	public static int militaryCol;
+	public static int medicCol;
+	public static int airportCol;
+
+	
+	
 	public static float shadowOffset;
+	public static float iconSize;
+	public static float strokeW;
 //	public float r ;
 //	public float g ;
 //	public float b ;
@@ -38,20 +50,32 @@ public class Styles {
 //		}
 	
 	
-	public static void createColors(){
+	public static void create(){
+		
+//		colors
 	col1 = p.color(33,33,33,255);
 	col2 = p.color(93,93,92,255); 
 	col3 = p.color(222,222,222,255);
 	col4 = p.color(88,130,223,255);
 	colBG = p.color(0,0,0,255);
 	colShadow  = p.color(5,5,5,128);
-	kontur = p.color(p.red(col1)+42,p.green(col1)+42,p.blue(col1)+42,200);;
+	kontur = p.color(255,200);
 	textColor = p.color(255,255,255,250);
-	shadowOffset = 2.5f;
+	fireCol = p.color(255,130,130,250);
+//	todo
+	policeCol = p.color(255,130,130,250);
+	fireStCol= p.color(255,130,130,250);
+	militaryCol= p.color(255,130,130,250);
+	medicCol= p.color(255,130,130,250);
+	airportCol= p.color(255,130,130,250);
 	
-}
+//	sizes and distances
+	shadowOffset = 2.5f;
+	iconSize = 13f;
+	strokeW = 1f;
 
-	public static void createFont(){
+
+//	Fonts
 	calibri14Reg = p.loadFont("../data/Calibri-14.vlw");
 	calibri18Reg= p.loadFont("../data/Calibri-18.vlw");
 	calibri24Reg= p.loadFont("../data/Calibri-24.vlw");

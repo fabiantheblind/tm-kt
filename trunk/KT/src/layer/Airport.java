@@ -8,6 +8,7 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PShape;
 import utils.Container;
+import utils.Styles;
 
 import com.modestmaps.core.Point2f;
 import com.modestmaps.geo.Location;
@@ -29,6 +30,8 @@ import com.modestmaps.geo.Location;
 	Airport(PApplet p,Location cLocation,String cName){
 		name = cName;
 		location = cLocation;
+		this.p = p;
+
 }
 
 public void drawAirport(ArrayList<Container> listener){
@@ -39,13 +42,14 @@ public void drawAirport(ArrayList<Container> listener){
 	    		}
 	    myAirportIcon = p.loadShape("../data/AirportIcon.svg");
         p.smooth();
-        p.shapeMode(PConstants.CENTER);
-        p.fill(0);
-        p.stroke(0);
-//                Point2f point = map.locationPoint((Location)((WeatherStation)stationsList.get(i)).location);
-//                Point2f point = map.locationPoint(location);
-        		p.shape(myAirportIcon,point.x,point.y,11,11);
-//                p.ellipse(point.x, point.y, 10, 10);
+		p.shapeMode(p.CENTER);
+		myAirportIcon.disableStyle();
+		p.fill(Styles.airportCol);
+		p.stroke(Styles.kontur);
+		p.strokeWeight(Styles.strokeW);
+        p.shape(myAirportIcon,point.x,point.y,Styles.iconSize,Styles.iconSize);
+        
+//      p.ellipse(point.x, point.y, 10, 10);
 //		float tw = p.textWidth(name);
 //		p.rect(point.x + 9, point.y - 21, tw + 6 , 18);
 //		p.line(point.x, point.y, point.x + 8, point.y - 3);
