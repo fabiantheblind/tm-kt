@@ -31,7 +31,6 @@ public class Styles {
 	public static int airportCol;
 
 	
-	
 	public static float shadowOffset;
 	public static float iconSize;
 	public static float strokeW;
