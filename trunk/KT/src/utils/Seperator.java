@@ -40,14 +40,18 @@ public class Seperator {
 	}
 	
 	public boolean isOver(){
+		return isOver(main.mouseY,main.mouseX);
+	}
+	
+	public boolean isOver(int x, int y){
 		if(vertical){
-			if( main.mouseX > p1.x - 5 && main.mouseX < p1.x + 5
-				&&	main.mouseY > neighbor[0].getY() - 5 && main.mouseY < neighbor[1].getY() + 5
+			if( x > p1.x - 5 && x < p1.x + 5
+				&&	y > neighbor[0].getY() - 5 && y < neighbor[1].getY() + 5
 			)
 				return true;
 		}else{
-			if( main.mouseY > p1.y - 5 && main.mouseY < p1.y + 5
-				&&	main.mouseX > neighbor[0].getX() - 5 && main.mouseX < neighbor[1].getX() + 5
+			if( y > p1.y - 5 && y < p1.y + 5
+				&&	x > neighbor[0].getX() - 5 && x < neighbor[1].getX() + 5
 			)
 				return true;
 		}

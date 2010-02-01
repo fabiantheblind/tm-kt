@@ -14,8 +14,12 @@ import utils.PMapContainer;
 import utils.Seperator;
 import utils.Styles;
 
+import TUIO.TuioClient;
 import TUIO.TuioCursor;
+import TUIO.TuioListener;
 import TUIO.TuioObject;
+import TUIO.TuioProcessing;
+import TUIO.TuioTime;
 
 import codeanticode.glgraphics.GLConstants;
 import codeanticode.glgraphics.GLGraphics;
@@ -26,11 +30,14 @@ import com.sun.opengl.impl.GLContextLock;
 import com.modestmaps.providers.OpenStreetMap;
 
 import de.fhpotsdam.pmaps.PMap;
+import de.fhpotsdam.pmaps.interactions.TUIOMapInteractionsHandler;
 import de.fhpotsdam.pmaps.utils.DebugDisplay;
 
 @SuppressWarnings("serial")
-public class Main extends PApplet {
+public class Main extends PApplet implements TuioListener{
 
+	public final int faktor = 2;
+	public final int SIZE_X = 1920/faktor, SIZE_Y = 1080/faktor;
 	/**
 	 * Beschreibung:
 	 * 
@@ -42,7 +49,6 @@ public class Main extends PApplet {
 	 * 	- Layout (erstmal mit Tasten (1,2,.... )
 	 * 	- ShowableObjects ( bestehende anschauen und Bridge Pattern anwenden )
 	 * 		-> Möglichkeiten: draw/Begrenzung durch Seperatoren/isOver(für Interaktion/
-	 * 	- Maus durch TUIO erstetzen ( TUIO Finger )
 	 * 	- Tasten durch TUIO ersetzen ( TUIO Objects )
 	 * 	- proper band pass filter
 	 * 	- 
@@ -83,15 +89,18 @@ public class Main extends PApplet {
 	Styles style;
 	
 	
-
+	TuioClient tuioClient;
 	
 	PMapContainer c1,c2,c3;
 	
 	public void setup(){
 //		size(1920, 1080, GLConstants.GLGRAPHICS );
 
-		size(960, 540, P3D);
-		
+		size(SIZE_X, SIZE_Y, P3D);
+		tuioClient = new TuioClient();
+		tuioClient.addTuioListener(this);
+		tuioClient.connect();
+
 		style = new Styles(this);
 		style.create();
 		println(style.shadowOffset);
@@ -122,39 +131,39 @@ public class Main extends PApplet {
 		
 		/* Initialisierung der Ränder */
 		top = new Seperator(this);
-		top.setPoints(new Point(0,20), new Point(width,20));
+		top.setPoints(new Point(0,50/faktor), new Point(width,50/faktor));
 		top.vertical = false;
 		left = new Seperator(this);
-		left.setPoints(new Point(0,20), new Point(0,height));
+		left.setPoints(new Point(0,20), new Point(0,height-116/faktor));
 		left.vertical = true;
 		buttom = new Seperator(this);
-		buttom.setPoints(new Point(0,height), new Point(width,height));
+		buttom.setPoints(new Point(0,height-116/faktor), new Point(width,height-116/faktor));
 		buttom.vertical = false;
 		right = new Seperator(this);
-		right.setPoints(new Point(width,20), new Point(width,height));
+		right.setPoints(new Point(width,50/faktor), new Point(width,height-116/faktor));
 		right.vertical = true;
 		
 		/* Initialisierung der innteren Trennlinien */
-		seperator = new Seperator[2];
+		seperator = new Seperator[4];
 		seperator[0] = new Seperator(this,top,buttom);
 		seperator[0].vertical = true;
-		seperator[0].setPoints(new Point(400,20), new Point(400,600));
-		seperator[1] = new Seperator(this,seperator[0],right);
+		seperator[0].setPoints(new Point(640/faktor,50/faktor), new Point(640/faktor,height-116/faktor));
+		seperator[1] = new Seperator(this,left,seperator[0]);
 		seperator[1].vertical = false;
-		seperator[1].setPoints(new Point(400,300), new Point(800,300));
-//		seperator[2] = new Seperator(this,seperator[0],right);
-//		seperator[2].vertical = false;
-//		seperator[2].setPoints(new Point(400,500), new Point(800,500));
-//		seperator[3] = new Seperator(this,left,seperator[0]);
-//		seperator[3].vertical = false;
-//		seperator[3].setPoints(new Point(0,100), new Point(400,100));
+		seperator[1].setPoints(new Point(0,456/faktor), new Point(640/faktor,456/faktor));
+		seperator[2] = new Seperator(this,top,buttom);
+		seperator[2].vertical = true;
+		seperator[2].setPoints(new Point(width,50/faktor), new Point(width,height-116/faktor));
+		seperator[3] = new Seperator(this,seperator[2],right);
+		seperator[3].vertical = false;
+		seperator[3].setPoints(new Point(width,456/faktor), new Point(width,456/faktor));
 
-		Seperator[] s4c1 = {top,left,buttom,seperator[0]};
-		c1 = new PMapContainer(this, s4c1);
-		Seperator[] s4c2 = {top,seperator[0],seperator[1],right};
-		c2 = new PMapContainer(this, s4c2);
-		Seperator[] s4c3 = {seperator[1],seperator[0],buttom,right};
-		c3 = new PMapContainer(this, s4c3);
+		Seperator[] s4c1 = {top,seperator[0],buttom,seperator[2]};
+		c1 = new PMapContainer(this, s4c1,tuioClient);
+		Seperator[] s4c2 = {top,left,seperator[1],seperator[0]};
+		c2 = new PMapContainer(this, s4c2,tuioClient);
+		Seperator[] s4c3 = {seperator[1],left,buttom,seperator[0]};
+		c3 = new PMapContainer(this, s4c3,tuioClient);
 		
 		c1.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
 		c1.pmap.mapManipulation.zoomToLevel(5);
@@ -228,11 +237,16 @@ public class Main extends PApplet {
 	
 	@Override
 	public void mousePressed() {
+		pointPressed(mouseX,mouseY);
+	}
+	
+	private void pointPressed(int x,int y){
+//		System.out.println(x+"/"+y);
 		down = true;
 		active = new Seperator[seperator.length];
 		activeCount = 0;
 		for (int i = 0; i < seperator.length; i++) {
-			if(seperator[i].isOver()){
+			if(seperator[i].isOver(x,y)){
 				active[activeCount++] = seperator[i];
 				seperator[i].active = true;
 			}
@@ -241,16 +255,23 @@ public class Main extends PApplet {
 	
 	@Override
 	public void mouseDragged() {
+		pointDragged(mouseX, mouseY);
+	}
+	
+	private void pointDragged(int x,int y){
 		if(!down)
 			return;
-		
 		for (int i = 0; i < activeCount; i++) {
-			active[i].move(mouseX, mouseY);
+			active[i].move(x, y);
 		}
 	}
 	
 	@Override
 	public void mouseReleased() {
+		pointReleased();
+	}
+	
+	private void pointReleased(){
 		for (int i = 0; i < activeCount; i++) {
 			active[i].active = false;
 		}
@@ -298,15 +319,20 @@ public class Main extends PApplet {
 //		System.out.println("update obj");
 	}
 	public void addTuioCursor(TuioCursor tCur){
-//		System.out.println("add cur");		
+		System.out.println("add cur");
+		pointPressed((int)(tCur.getX()*(float)width), (int)(tCur.getY()*(float)height));
 	}
 	public void removeTuioCursor(TuioCursor tCur){
-//		System.out.println("rem cur");			
-		}
+		System.out.println("rem cur");
+		pointReleased();
+	}
 	public void updateTuioCursor(TuioCursor tCur){
-//		System.out.println("update cur");		
+//		System.out.println("update cur x:"+tCur.getX()+" y:"+tCur.getY());	
+		pointDragged((int)(tCur.getX()*(float)width), (int)(tCur.getY()*(float)height));
 	}
 
+	public void refresh(TuioTime tuioTime) {
+	}
 	
 }
 
