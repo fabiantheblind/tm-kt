@@ -77,6 +77,7 @@ public void Ellipse(float xPos, float yPos, float diam,float myStrokeWeight, Str
 	p.ellipse((xPos),(yPos),diam,diam);
 	p.fill(textColor);
 	p.text(myText, xPos + 12, yPos - 7);
+//	TestTestTest
 }
 	
 }
