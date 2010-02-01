@@ -11,6 +11,7 @@ import layer.WindMarkerManager;
 
 import processing.core.PApplet;
 //import processing.core.PConstants;
+import utils.MyMapProvider;
 import utils.PMapContainer;
 import utils.Seperator;
 import utils.Styles;
@@ -30,6 +31,7 @@ import com.modestmaps.providers.Microsoft;
 import com.sun.opengl.impl.GLContextLock;
 import com.modestmaps.providers.OpenStreetMap;
 
+import de.fhpotsdam.eventhandling.MyMapApplet;
 import de.fhpotsdam.pmaps.PMap;
 import de.fhpotsdam.pmaps.interactions.TUIOMapInteractionsHandler;
 import de.fhpotsdam.pmaps.utils.DebugDisplay;
@@ -171,7 +173,7 @@ public class Main extends PApplet implements TuioListener{
 		c1.pmap.map.setMapProvider(new OpenStreetMap.CloudmadeProvider(CLOUDMADE_API_KEY, CLOUDMADE_STYLE_ID));
 		c2.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
 		c2.pmap.mapManipulation.zoomToLevel(3);
-		c3.pmap.map.setMapProvider(new Microsoft.HybridProvider());
+		c3.pmap.map.setMapProvider(new MyMapProvider());
 		c3.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
 		c3.pmap.mapManipulation.zoomToLevel(3);
 		
