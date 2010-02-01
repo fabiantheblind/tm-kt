@@ -11,6 +11,7 @@ import layer.WindMarkerManager;
 
 import processing.core.PApplet;
 //import processing.core.PConstants;
+import utils.Menue;
 import utils.MyMapProvider;
 import utils.PMapContainer;
 import utils.Seperator;
@@ -92,12 +93,14 @@ public class Main extends PApplet implements TuioListener{
 	
 	
 	TuioClient tuioClient;
-	
+//	Menue menue;
 	PMapContainer c1,c2,c3;
 	
 	public void setup(){
 	Styles.setPApplet(this);
 	Styles.create();
+//	menue = new Menue(this);
+//	menue.loadData();
 
 //		size(1920, 1080, GLConstants.GLGRAPHICS );
 
@@ -210,6 +213,7 @@ public class Main extends PApplet implements TuioListener{
 	public void draw(){
 		background(Styles.colBG);
 		
+//		menue.layer0(false,false,true);
 
 //		pmap.draw();
 //		pmap.drawGreenBorder();
