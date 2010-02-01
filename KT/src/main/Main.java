@@ -5,6 +5,7 @@ import java.awt.Point;
 import layer.AirportsManager;
 import layer.ConusFiresManager;
 import layer.Layer;
+import layer.StationsManager;
 import layer.WeatherStationManager;
 import layer.WindMarkerManager;
 
@@ -83,7 +84,7 @@ public class Main extends PApplet implements TuioListener{
 	int CLOUDMADE_STYLE_ID = 11786; // your style ID 
 //	cfm = Conus Fire Manager
 //	caam = California Airports Manager
-	Layer wsm,wmm,cfm, caam;
+	Layer wsm,wmm,cfm, caam, ps;
 	
  
 	
@@ -188,7 +189,7 @@ public class Main extends PApplet implements TuioListener{
 		wsm.init();
 		caam.init();
 		caam.addContainer(c1);
-		wsm.addContainer(c2);
+//		wsm.addContainer(c2);
 		cfm.addContainer(c3);
 		
 		
@@ -197,6 +198,10 @@ public class Main extends PApplet implements TuioListener{
 		wmm.init();
 		wmm.addContainer(c1);
 		wmm.addContainer(c3);
+		
+		ps = new StationsManager(this, 1);
+		ps.init();
+		ps.addContainer(c2);
 		
 		
 	}
@@ -216,7 +221,6 @@ public class Main extends PApplet implements TuioListener{
 		c1.draw();
 		c2.draw();
 		c3.draw();
-		
 		/* Ränder ... */ 
 		top.draw();
 		left.draw();
@@ -230,6 +234,7 @@ public class Main extends PApplet implements TuioListener{
 		wsm.draw();
 		wmm.draw();
 		cfm.draw();
+		ps.draw();
 //		doesnt work dont know why????
 //		caam.draw();
 		
