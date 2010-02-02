@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import utils.Container;
+import utils.Styles;
 
 import com.modestmaps.core.Point2f;
 import com.modestmaps.geo.Location;
@@ -14,18 +15,22 @@ public class WindMarker {
 	public Location theLocation;
 	public float temp_f;
 	public float temp_c;
+	public String stringTemp_c;
 	public float wind_degrees;
 	public float wind_mph;
+	public String stringWind_string;
 	
 	public int dropShadow_01 = 4;
 
-	public WindMarker(PApplet p,Location wmTheLocation, float wmTemp_f, float wmTemp_c, float wmWind_degrees, float wmWind_mph){
+	public WindMarker(PApplet p,Location wmTheLocation, float wmTemp_f, float wmTemp_c, String wmStringTemp_c, float wmWind_degrees, float wmWind_mph, String wmStringWind_string){
 		this.p = p;
 		theLocation = wmTheLocation;	
 		temp_f = wmTemp_f;
 		temp_c = wmTemp_c;
+		stringTemp_c = wmStringTemp_c;
 		wind_degrees = wmWind_degrees;
 		wind_mph = wmWind_mph;
+		stringWind_string = wmStringWind_string;
 	
 	}
 	
@@ -48,7 +53,7 @@ public class WindMarker {
 				arrowRotate();
 	
 				if(m < dropShadow_01 -1){
-					p.stroke(0,50);				
+					p.noStroke();				
 					p.fill(0,50);				
 				}
 				else{
@@ -57,7 +62,6 @@ public class WindMarker {
 				
 				if (wind_mph > 0){
 	
-					p.strokeWeight(2);
 	
 					p.beginShape();
 	
@@ -77,35 +81,40 @@ public class WindMarker {
 		}
 	}
 
-	public void writeTheWeather(){		
-//	
-//		Point2f arrowPoint = map.locationPoint(theLocation);	
-//			
-//		//textFont(regular_18, 18);
-//		
-//		for(int n = 0; n < dropShadow_01; n++){
-//			
-//			p.pushMatrix(); 
-//			p.translate(arrowPoint.x -n, arrowPoint.y -n);
-//			p.smooth();
-//			
-//			if(n < dropShadow_01 -1){
-//				
-//				p.fill(0,50);
-//								
-//			}
-//			else{
-//			
-//				tempColour_02();
-//								
-//			}
-//
-//			p.text(temp_c, 0, 0);	
-//			
-//			p.popMatrix();
-//		}
-//		 
+	public void writeTheWeather(ArrayList<Container> listener){		
+
+		for(Container container : listener ){
+			
+			Point2f arrowPoint = container.locationPoint(theLocation);
+			
+			if(!container.isInside((int)arrowPoint.x, (int)arrowPoint.y)){
+				continue;
+			}
+
+			p.pushMatrix(); 
+			p.translate(arrowPoint.x, arrowPoint.y);
+			p.smooth();
+			
+			p.fill(0,100);
+			p.rect(dropShadow_01-5,dropShadow_01-41,75,106);
+			p.fill(0);
+			p.rect(-5,-41,75,106);
+
+			p.fill(Styles.textColor);
+			p.textFont(Styles.calibri24RegBld, 24);
+			
+			String temp = stringTemp_c +"¡C";
+			p.text(temp, 0, -7);
+
+			p.textFont(Styles.calibri14Reg, 14);	
+			p.text(stringWind_string,0,0,60,60);	
+			
+			p.popMatrix();
+		 
+		}
 	}	 
+
+
 
 	public void tempColour_01(){
 
@@ -145,6 +154,14 @@ public class WindMarker {
 
 		p.fill(myH,myS,myB);
 		p.stroke(0);		
+	}
+	
+	public void tempColour_03(){
+
+		p.colorMode(PApplet.HSB);
+
+		p.fill(0,0,150);
+		p.stroke(0);	
 	}
 
 	public void arrowRotate(){
