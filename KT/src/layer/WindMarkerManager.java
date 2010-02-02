@@ -13,7 +13,9 @@ public class WindMarkerManager extends AbstractLayer implements Layer{
 	//extended WeatherStationManager ??
 		
 		public ArrayList<WindMarker> windMarkerList;
-		
+		public processing.xml.XMLElement lokalRSS;
+		public processing.xml.XMLElement [] lokalRSSStation;
+
 		WeatherStationManager hereManager;
 		
 		public WindMarkerManager(PApplet p,WeatherStationManager hereManager){
@@ -27,6 +29,9 @@ public class WindMarkerManager extends AbstractLayer implements Layer{
 		//println(WeatherStationManager.rssStation[5]);
 
 		public void init(){
+//			load the current weather from an xml file. presentation Mode
+			lokalRSS = new processing.xml.XMLElement(p, "../data/myCurrentTangibleWeather.xml");
+			lokalRSSStation = lokalRSS.getChildren();
 			
 			XMLElement xmlLat, xmlLon, xmlTemp_f, xmlTemp_c, xmlWind_degrees, xmlWind_mph;
 		//  public XMLElement xmlRelative_humidity;
@@ -36,8 +41,8 @@ public class WindMarkerManager extends AbstractLayer implements Layer{
 
 			float floatLat,  floatLon,  floatTemp_f,  floatTemp_c,  floatWind_degrees,  floatWind_mph;
 //			public float floatRelative_humidity;
-			
-			for (XMLElement oneWeatherStationXML : hereManager.rssStation){
+//			use "hereManager.rssStation" insted of lokalRSSStation if you want a live update from the web
+			for (XMLElement oneWeatherStationXML : lokalRSSStation){
 				
 				//XMLElement currentObs = oneWeatherStationXML.getChild("current_observation");
 				xmlLat = oneWeatherStationXML.getChild("latitude");
