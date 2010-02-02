@@ -167,7 +167,7 @@ public class WindMarkerManager extends AbstractLayer implements Layer{
 		}	
 		
 		public void draw(){
-		
+			removeSelectedContainer();
 			for(int i = 0; i<windMarkerList.size();i++){
 					//beim Zeichnen die Container übergeben!
 					windMarkerList.get(i).drawArrow(listener);

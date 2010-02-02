@@ -1,6 +1,8 @@
 package main;
 
+import java.awt.Container;
 import java.awt.Point;
+import java.util.ArrayList;
 
 import layer.AirportsManager;
 import layer.ConusFiresManager;
@@ -41,7 +43,7 @@ import de.fhpotsdam.pmaps.utils.DebugDisplay;
 public class Main extends PApplet implements TuioListener{
 
 	public final int faktor = 2;
-	public final int SIZE_X = 1920/faktor, SIZE_Y = 1080/faktor;
+	public final int SIZE_X = 1920/faktor, SIZE_Y = 1020/faktor;
 	/**
 	 * Beschreibung:
 	 * 
@@ -85,9 +87,9 @@ public class Main extends PApplet implements TuioListener{
 	
 	String CLOUDMADE_API_KEY = "65963b5e0821429da9f583d6f99f1da2";
 	int CLOUDMADE_STYLE_ID = 11786; // your style ID 
-//	cfm = Conus Fire Manager
-//	caam = California Airports Manager
-	Layer wsm,wmm,cfm, caam, ps;
+	Layer wsm, wmm, cfm, caam, ps, fs, hos;
+	ArrayList<Layer> layers;
+	
 	
  
 	
@@ -95,8 +97,12 @@ public class Main extends PApplet implements TuioListener{
 	TuioClient tuioClient;
 //	Menue menue;
 	PMapContainer c1,c2,c3;
+	ArrayList<PMapContainer> containers;
 	
 	public void setup(){
+//	Styles.setPApplet(this);
+//	Styles.createColors();
+//	Styles.createFont();
 	Styles.setPApplet(this);
 	Styles.create();
 //	menue = new Menue(this);
@@ -186,46 +192,43 @@ public class Main extends PApplet implements TuioListener{
 		 * von dem WindMarkerManager und WeatherStationManager erben!
 		 * Erben = extends => sie können alles was der AbstractLayer kann.
 		 */
-		caam = new AirportsManager(this);
-		cfm =new  ConusFiresManager(this);
+
+		cfm = new  ConusFiresManager(this);
 		wsm = new WeatherStationManager(this);
-		cfm.init();
 		wsm.init();
-		caam.init();
-		caam.addContainer(c1);
-//		wsm.addContainer(c2);
-		cfm.addContainer(c3);
-		
-		
 		wmm = new WindMarkerManager(this,(WeatherStationManager)wsm);
-		
 		wmm.init();
-		wmm.addContainer(c1);
-		wmm.addContainer(c3);
 		
-//		ps = new StationsManager(this, 1);
-//		ps.init();
-//		ps.addContainer(c2);
-//		
+		ps = new StationsManager(this, 0);
+		ps.init();
+		fs = new StationsManager(this, 1);
+		fs.init();
+		hos = new StationsManager(this, 2);
+		hos.init();
 		
+		layers = new ArrayList<Layer>();
+		containers = new ArrayList<PMapContainer>();
+		layers.add(wmm);
+		layers.add(ps);
+		layers.add(hos);
+		layers.add(fs);
+		layers.add(cfm);
+		containers.add(c1);
+		containers.add(c2);
+		containers.add(c3);
 	}
 	
 	public void draw(){
 		background(Styles.colBG);
-//		menue sketch in package utils warning doesent work
-//		menue.layer0(false,false,true);
-
-//		pmap.draw();
-//		pmap.drawGreenBorder();
-//
-//		pmap2.draw();
-//		pmap2.drawGreenBorder();
-//
-//		debugDisplay.draw();
 		
-		c1.draw();
-		c2.draw();
-		c3.draw();
+		for(PMapContainer container : containers){
+			container.draw();
+		}
+		
+		for(Layer layer : layers){
+			layer.draw();
+		}
+		
 		/* Ränder ... */ 
 		top.draw();
 		left.draw();
@@ -234,15 +237,7 @@ public class Main extends PApplet implements TuioListener{
 		/* .. und  Trennlinien zeichnen */
 		for (int i = 0; i < seperator.length; i++) {
 			seperator[i].draw();
-		}
-		
-		wsm.draw();
-		wmm.draw();
-		cfm.draw();
-//		ps.draw();
-//		doesnt work dont know why????
-//		caam.draw();
-		
+		}		
 	}
 	
 	@Override
@@ -315,16 +310,64 @@ public class Main extends PApplet implements TuioListener{
 	
 	public void addTuioObject(TuioObject tObj){
 		System.out.println("add obj with id="+tObj.getSymbolID());
-		if(tObj.getSymbolID()<3){
-//			type[tObj.getSymbolID()]=true;
+		int x = (int)(tObj.getX()*(float)width);
+		int y = (int)(tObj.getY()*(float)height);
+		int id = tObj.getSymbolID();
+		if(id>4 && id < 10){
+			for(PMapContainer container : containers){
+				if(container.isInside(x, y)){
+					switch(id){
+					case 5:
+						cfm.addContainer(container);
+						break;
+					case 6:
+						wmm.addContainer(container);
+						break;
+					case 7:
+						ps.addContainer(container);
+						break;
+					case 8:
+						fs.addContainer(container);
+						break;
+					case 9:
+						hos.addContainer(container);
+						break;
+					}
+				}
+			}
 		}
+		
 	}
 	public void removeTuioObject(TuioObject tObj){
 		System.out.println("rem obj with id="+tObj.getSymbolID());
-		if(tObj.getSymbolID()<3){
-//			type[tObj.getSymbolID()]=false;
+		int x = (int)(tObj.getX()*(float)width);
+		int y = (int)(tObj.getY()*(float)height);
+		int id = tObj.getSymbolID();
+		if(id>4 && id < 10){
+			for(PMapContainer container : containers){
+				if(container.isInside(x, y)){
+					switch(id){
+					case 5:
+						cfm.removeContainer(container);
+						break;
+					case 6:
+						wmm.removeContainer(container);
+						break;
+					case 7:
+						ps.removeContainer(container);
+						break;
+					case 8:
+						fs.removeContainer(container);
+						break;
+					case 9:
+						hos.removeContainer(container);
+						break;
+					}
+				}
+			}
 		}
 	}
+	
 	public void updateTuioObject(TuioObject tObj){
 //		System.out.println("update obj");
 	}
