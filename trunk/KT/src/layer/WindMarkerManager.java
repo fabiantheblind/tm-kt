@@ -40,7 +40,6 @@ public class WindMarkerManager extends AbstractLayer implements Layer{
 			for (XMLElement oneWeatherStationXML : hereManager.rssStation){
 				
 				//XMLElement currentObs = oneWeatherStationXML.getChild("current_observation");
-				
 				xmlLat = oneWeatherStationXML.getChild("latitude");
 				xmlLon = oneWeatherStationXML.getChild("longitude");
 				xmlTemp_f = oneWeatherStationXML.getChild("temp_f");
