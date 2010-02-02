@@ -33,10 +33,10 @@ public class WindMarkerManager extends AbstractLayer implements Layer{
 			lokalRSS = new processing.xml.XMLElement(p, "../data/myCurrentTangibleWeather.xml");
 			lokalRSSStation = lokalRSS.getChildren();
 			
-			XMLElement xmlLat, xmlLon, xmlTemp_f, xmlTemp_c, xmlWind_degrees, xmlWind_mph;
+			XMLElement xmlLat, xmlLon, xmlTemp_f, xmlTemp_c, xmlWind_degrees, xmlWind_mph, xmlWind_string;
 		//  public XMLElement xmlRelative_humidity;
 
-			String stringLat, stringLon, stringTemp_f, stringTemp_c, stringWind_degrees, stringWind_mph;
+			String stringLat, stringLon, stringTemp_f, stringTemp_c, stringWind_degrees, stringWind_mph, stringWind_string;
 //			public String stringRelative_humidity;
 
 			float floatLat,  floatLon,  floatTemp_f,  floatTemp_c,  floatWind_degrees,  floatWind_mph;
@@ -51,6 +51,8 @@ public class WindMarkerManager extends AbstractLayer implements Layer{
 				xmlTemp_c = oneWeatherStationXML.getChild("temp_c");
 				xmlWind_degrees = oneWeatherStationXML.getChild("wind_degrees");
 				xmlWind_mph = oneWeatherStationXML.getChild("wind_mph");
+				xmlWind_string = oneWeatherStationXML.getChild("wind_string");
+
 				//xmlRelative_humidity= oneWeatherStationXML.getChild("relative_humidity");
 
 				//println(xmlTemp_f + " " + xmlTemp_c + " " + xmlWind_degrees + " " + xmlWind_mph + " " + xmlRelative_humidity );
@@ -140,6 +142,17 @@ public class WindMarkerManager extends AbstractLayer implements Layer{
 					stringWind_mph = xmlWind_mph.getContent();
 					if (stringWind_mph.equals ("NA")) { stringWind_mph = "0";}
 				}
+				
+				try {
+					stringWind_string = xmlWind_string.getContent();
+				}
+				catch (NullPointerException e) {
+					stringWind_string= "0";	
+				}
+				if(stringWind_string !="0"){
+					stringWind_string = xmlWind_string.getContent();
+					if (stringWind_string.equals ("NA")) { stringWind_string = "Not available!!!";}
+				}
 				  
 
 				//stringRelative_humidity = xmlRelative_humidity.getContent();
@@ -158,7 +171,7 @@ public class WindMarkerManager extends AbstractLayer implements Layer{
 				
 				Location oneStationLocation = new Location(floatLat, floatLon);
 				
-				WindMarker myWindMarker  = new WindMarker(p,oneStationLocation, floatTemp_f, floatTemp_c, floatWind_degrees, floatWind_mph);
+				WindMarker myWindMarker  = new WindMarker(p,oneStationLocation, floatTemp_f, floatTemp_c, stringTemp_c, floatWind_degrees, floatWind_mph, stringWind_string);
 				windMarkerList.add(myWindMarker);
 				
 				//println(floatTemp_f + " " + floatTemp_c + " " + floatWind_degrees + " " + floatWind_mph );
@@ -192,7 +205,7 @@ public class WindMarkerManager extends AbstractLayer implements Layer{
 		
 			for(int i = 0; i<windMarkerList.size();i++){
 			//Point2f myPoint = map.locationPoint((Location)((WeatherStation)stationsList.get(i)).location);
-					((WindMarker)windMarkerList.get(i)).writeTheWeather();
+					((WindMarker)windMarkerList.get(i)).writeTheWeather(listener);
 			}
 			
 			for(int j = 0; j < 20; j++){
