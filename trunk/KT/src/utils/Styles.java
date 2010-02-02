@@ -2,18 +2,29 @@ package utils;
 
 import processing.core.PApplet;
 import processing.core.PFont;
+import processing.core.PShape;
 
 public class Styles {
 	
 	public static PApplet p;
+	
 	public static PFont calibri14Reg;
-	public static 	PFont calibri18Reg;
-	public static 	PFont calibri24Reg;
-	public static 	PFont calibri36Reg;
-	public static 	PFont calibri14RegBld;
-	public static 	PFont calibri18RegBld;
-	public static 	PFont calibri24RegBld;
-	public static 	PFont calibri36RegBld;
+	public static PFont calibri18Reg;
+	public static PFont calibri24Reg;
+	public static PFont calibri36Reg;
+	public static PFont calibri14RegBld;
+	public static PFont calibri18RegBld;
+	public static PFont calibri24RegBld;
+	public static PFont calibri36RegBld;
+	
+	public static PShape fire;
+	public static PShape fireStation;
+	public static PShape firstAid;
+	public static PShape military;
+	public static PShape policeStation;
+	public static PShape AirportIcon;
+
+	
 	public static int col1;
 	public static int col2; 
 	public static int col3;
@@ -23,12 +34,21 @@ public class Styles {
 	public static int kontur;
 	public static int textColor;
 	
-	public static int fireCol;
+	public static int fireCol1;
+	public static int fireCol2;
+	public static int fireCol3;
+
 	public static int policeCol;
 	public static int fireStCol;
 	public static int militaryCol;
 	public static int medicCol;
 	public static int airportCol;
+	public static int pointCol;
+	public static int lineCol;
+	public static int polyCol;
+
+
+
 
 	
 	public static float shadowOffset;
@@ -60,17 +80,22 @@ public class Styles {
 	colShadow  = p.color(5,5,5,128);
 	kontur = p.color(255,200);
 	textColor = p.color(255,255,255,250);
-	fireCol = p.color(255,130,130,250);
+	fireCol1 = p.color(255,50,50,250);
+	fireCol2 = p.color(255,100,100,250);
+	fireCol3 = p.color(255,200,200,250);
+	policeCol = p.color(255,255,80,250);
+	fireStCol= p.color(255,10,10,250);
+	militaryCol= p.color(0,130,0,250);
+	medicCol= p.color(50,50,255,250);
+	airportCol= p.color(50,130,255,250);
+
 //	todo
-	policeCol = p.color(255,130,130,250);
-	fireStCol= p.color(255,130,130,250);
-	militaryCol= p.color(255,130,130,250);
-	medicCol= p.color(255,130,130,250);
-	airportCol= p.color(255,130,130,250);
-	
+	 pointCol=p.color(p.red(col4),p.green(col4),p.blue(col4),245);
+	 lineCol= p.color(p.red(col4),p.green(col4),p.blue(col4),200);
+	 polyCol= p.color(p.red(col4),p.green(col4),p.blue(col4),50);
 //	sizes and distances
 	shadowOffset = 2.5f;
-	iconSize = 13f;
+	iconSize = 15f;
 	strokeW = 1f;
 
 
@@ -84,6 +109,18 @@ public class Styles {
 	calibri24RegBld= p.loadFont("../data/Calibri-Bold-24.vlw");
 	calibri36RegBld= p.loadFont("../data/Calibri-Bold-36.vlw");
 	shadowOffset = 2.5f;
+	
+//	load Icons
+	
+	fire = p.loadShape("../data/fire.svg");
+	AirportIcon = p.loadShape("../data/AirportIcon.svg"); 
+	fireStation = p.loadShape("../data/fireStation.svg");
+	firstAid = p.loadShape("../data/firstAid.svg");
+	military = p.loadShape("../data/military.svg");
+	policeStation = p.loadShape("../data/policeStation.svg");
+
+
+	
 	
 }
 
