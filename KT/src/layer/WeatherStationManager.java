@@ -1,5 +1,6 @@
 package layer;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
@@ -13,6 +14,9 @@ public class WeatherStationManager extends AbstractLayer implements Layer{
 	public XMLElement xmlWeathStations;
 	public ArrayList<WeatherStation> stationsList;
 	public ArrayList<XMLElement> rssStation;
+	
+//	Create Textfiles
+	PrintWriter output;
 
 	
 	public WeatherStationManager(PApplet p){
@@ -22,6 +26,7 @@ public class WeatherStationManager extends AbstractLayer implements Layer{
 	}
 	
 	public void init(){
+		
 		xmlWeathStations = new XMLElement(p, "../data/CurrentWeatherStationsFeeds.xml");
 		XMLElement [] station = xmlWeathStations.getChildren();
 		XMLElement [] lonBox; 
@@ -57,14 +62,22 @@ public class WeatherStationManager extends AbstractLayer implements Layer{
 					}
 				}
 		  }
-		  
+//		  Here u can write Textfiles
+//		  output = p.createWriter("../data/currentWeatherTest.xml");
 		  //RSS FEEDS lesen
-		  for(int i = 0; i< 10/*stationsList.size()*/;i++){
+		  for(int i = 0; i< stationsList.size();i++){
 					rssStation.add(new XMLElement(p,stationsList.get(i).xml));
 					
+//					p.println(rssStation.get(i));
+//					output.println(rssStation.get(i));
+//					if(i==stationsList.size()-1){ 
+//					output.flush();
+//					output.close();
+//					}
 					// coords[i]= (rssStation[i].getChildren("location")).getContent();
-					System.out.println("Station "+i);
+//					System.out.println("Station "+i);
 		  }
+		 
 	}
 		
 	public void draw(){
