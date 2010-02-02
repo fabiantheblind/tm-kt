@@ -81,7 +81,7 @@ public class WeatherStationManager extends AbstractLayer implements Layer{
 	}
 		
 	public void draw(){
-	
+		removeSelectedContainer();
 		for(int i = 0; i<stationsList.size();i++){
 		//Point2f myPoint = map.locationPoint((Location)((WeatherStation)stationsList.get(i)).location);
 			if (((WeatherStation)stationsList.get(i)).state.equals("CA")==true){  
