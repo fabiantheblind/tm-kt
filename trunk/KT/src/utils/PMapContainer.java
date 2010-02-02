@@ -182,10 +182,10 @@ public class PMapContainer implements Container, TuioListener{
 		if(!isInside((int)x, (int)y) || tuioObject.getSymbolID()!= 5){
 			return;
 		}
-		if(x < zoomMarkerOldY-5 ){
+		if(y < zoomMarkerOldY-15 ){
 			pmap.mapManipulation.zoomIn();
 			zoomMarkerOldY = y;
-		}else if(x > zoomMarkerOldY+5){
+		}else if(y > zoomMarkerOldY+15){
 			pmap.mapManipulation.zoomOut();
 			zoomMarkerOldY = y;
 		}	

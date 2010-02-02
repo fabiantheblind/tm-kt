@@ -61,7 +61,7 @@ public class ConusFiresManager extends AbstractLayer implements Layer {
 	
 	
 	public void draw(){
-			
+			removeSelectedContainer();
 //			for identifying the different stages of the fire use
 //			   firesList.get(i).styleUrlStr.equals("#0_to_12hr_firePlacemark")
 //			|| firesList.get(i).styleUrlStr.equals("#12_to_24hr_firePlacemark")
