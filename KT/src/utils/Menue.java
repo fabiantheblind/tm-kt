@@ -36,7 +36,6 @@ public class Menue {
 	
 	public void layer0(Boolean layer0,Boolean layerDraw,Boolean layerSelec){
 		
-		p.imageMode(p.CORNER);
 		p.textFont(Styles.calibri14Reg, 14);
 		p.pushMatrix();
 		
@@ -46,7 +45,7 @@ public class Menue {
 		p.shapeMode(p.CENTER);
 		menueBG.disableStyle();
 		p.fill(Styles.col1);
-		p.shape(menueBG,myCenterX,myCenterY);
+//		p.shape(menueBG,myCenterX,myCenterY);
 		p.noFill();
 		p.rectMode(p.CENTER);
 		p.fill(Styles.textColor);
@@ -74,6 +73,8 @@ public class Menue {
 		p.tint(33,33,33,233);
 		p.imageMode(p.CENTER);
 		p.image(imgOverlay,0,0);
+		p.imageMode(p.CORNER);
+
 		p.noTint();
 		
 		p.popMatrix();
