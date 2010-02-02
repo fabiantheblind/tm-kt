@@ -72,6 +72,7 @@ public class StationsManager extends AbstractLayer implements Layer{
 	}
 	
 	public void draw(){
+		removeSelectedContainer();
 		Iterator<Location> locIt = locations.iterator();
 		while (locIt.hasNext()) {
 			Location location = (Location) locIt.next();

@@ -76,11 +76,12 @@ public class AirportsManager extends AbstractLayer implements Layer {
 		}
 
 	public void draw(){
-	for(int i = 0; i<airportCAList.size();i++){
-// 		System.out.println(airportCAList.get(i));
- 		airportCAList.get(i).drawAirport(listener);
-	  
-	}	
+		removeSelectedContainer();
+		for(int i = 0; i<airportCAList.size();i++){
+	// 		System.out.println(airportCAList.get(i));
+	 		airportCAList.get(i).drawAirport(listener);
+		  
+		}	
 }
 	
 	public void update(){
