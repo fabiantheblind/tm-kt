@@ -42,96 +42,131 @@ public class WindMarker {
     		if(!container.isInside((int)arrowPoint.x, (int)arrowPoint.y)){
     			continue;
     		}
-			float arrowThickness = wind_mph/5;
+    		
 			p.smooth();
+			
+			float arrowThickness = wind_mph/5;
 			
 			for(int m = 0; m < dropShadow_01; m++){
 				
-				p.pushMatrix(); 
-				p.translate(arrowPoint.x -m, arrowPoint.y -m);
-	
-				arrowRotate();
-	
-				if(m < dropShadow_01 -1){
-					p.noStroke();				
-					p.fill(0,50);				
-				}
-				else{
-					tempColour_02();								
+				if(p.mouseX > arrowPoint.x - 10 && p.mouseX < arrowPoint.x + 10 && p.mouseY > arrowPoint.y - 10 && p.mouseY < arrowPoint.y + 10){
+					
+					
+						
+						p.pushMatrix(); 
+						p.translate(arrowPoint.x, arrowPoint.y);
+						p.smooth();
+						
+						p.noStroke();
+						p.fill(Styles.colShadow);
+						p.rect(dropShadow_01-5,dropShadow_01-41,75,106);
+						tempColour_01();								
+						p.rect(-5,-41,75,106);
+
+						p.fill(33);
+						p.textFont(Styles.calibri24RegBld, 24);
+						
+						String temp = stringTemp_c +"¡C";
+						p.text(temp, 0, -7);
+
+						p.textFont(Styles.calibri14Reg, 14);	
+						p.text(stringWind_string,0,0,60,60);	
+						
+						p.popMatrix();
+					
 				}
 				
-				if (wind_mph > 0){
-	
-	
-					p.beginShape();
-	
-					p.vertex(-10 -arrowThickness, -10 -arrowThickness);
-					p.vertex(0, -5);
-					p.vertex(10 +arrowThickness, -10 -arrowThickness);
-					p.vertex(0 , 15 +arrowThickness);
-					p.vertex(-10 -arrowThickness, -10 -arrowThickness);
-	
-					p.endShape();
-				}
 				else{
-					p.ellipse(0, 0, 15, 15);
-				}				
-				p.popMatrix();
+					p.pushMatrix(); 
+					p.translate(arrowPoint.x -m, arrowPoint.y -m);
+				
+					arrowRotate();
+	
+					if(m < dropShadow_01 -1){
+						p.noStroke();				
+						p.fill(0,50);				
+					}
+					else{
+						tempColour_01();								
+					}
+				
+					if (wind_mph > 0){
+	
+						p.beginShape();
+	
+						p.vertex(-10 -arrowThickness, -10 -arrowThickness);
+						p.vertex(0, -5);
+						p.vertex(10 +arrowThickness, -10 -arrowThickness);
+						p.vertex(0 , 15 +arrowThickness);
+						p.vertex(-10 -arrowThickness, -10 -arrowThickness);
+	
+						p.endShape();
+					}
+					else{
+						p.ellipse(0, 0, 15, 15);
+					}				
+					p.popMatrix();
+				}
 			}						
 		}
 	}
 
 	public void writeTheWeather(ArrayList<Container> listener){		
 
-		for(Container container : listener ){
-			
-			Point2f arrowPoint = container.locationPoint(theLocation);
-			
-			if(!container.isInside((int)arrowPoint.x, (int)arrowPoint.y)){
-				continue;
-			}
-
-			p.pushMatrix(); 
-			p.translate(arrowPoint.x, arrowPoint.y);
-			p.smooth();
-			
-			p.fill(0,100);
-			p.rect(dropShadow_01-5,dropShadow_01-41,75,106);
-			p.fill(0);
-			p.rect(-5,-41,75,106);
-
-			p.fill(Styles.textColor);
-			p.textFont(Styles.calibri24RegBld, 24);
-			
-			String temp = stringTemp_c +"¡C";
-			p.text(temp, 0, -7);
-
-			p.textFont(Styles.calibri14Reg, 14);	
-			p.text(stringWind_string,0,0,60,60);	
-			
-			p.popMatrix();
-		 
-		}
+// wird nicht mehr gebraucht, da sie jetzt in der drawArrow() integriert ist.
+//		for(Container container : listener ){
+//			
+//			Point2f arrowPoint = container.locationPoint(theLocation);
+//			
+//			if(!container.isInside((int)arrowPoint.x, (int)arrowPoint.y)){
+//				continue;
+//			}
+//
+//			p.pushMatrix(); 
+//			p.translate(arrowPoint.x, arrowPoint.y);
+//			p.smooth();
+//			
+//			p.noStroke();
+//			p.fill(0,100);
+//			p.rect(dropShadow_01-5,dropShadow_01-41,75,106);
+//			p.fill(0);
+//			p.rect(-5,-41,75,106);
+//
+//			p.fill(Styles.textColor);
+//			p.textFont(Styles.calibri24RegBld, 24);
+//			
+//			String temp = stringTemp_c +"¡C";
+//			p.text(temp, 0, -7);
+//
+//			p.textFont(Styles.calibri14Reg, 14);	
+//			p.text(stringWind_string,0,0,60,60);	
+//			
+//			p.popMatrix();
+//		 
+//		}
 	}	 
 
 
 
 	public void tempColour_01(){
 
-		p.colorMode(PApplet.RGB);
 
+		p.colorMode(PApplet.RGB);
+		
 		float myR = 255;
 		float myG = 255;
-		float myB = 255;
-
+		float myB = 150;
+		
 		if(temp_c < 0){	
-			myR += temp_c * 4; 
+			myR += temp_c *5;
+			myG += temp_c *5;
+			myB -= temp_c;
+			 
 		}else{
-			myB -= temp_c * 4;
+			myB -= temp_c * 3;
 		}
-
+		
 		p.fill(myR,myG,myB);
-
 
 	}
 	
