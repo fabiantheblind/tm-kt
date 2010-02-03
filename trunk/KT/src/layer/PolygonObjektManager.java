@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import utils.PMapContainer;
+import utils.Styles;
 
 public class PolygonObjektManager extends AbstractLayer implements Layer{
 	
@@ -31,14 +32,14 @@ public class PolygonObjektManager extends AbstractLayer implements Layer{
 	public void draw(){
 
 //		cases
-		
+		p.smooth();
 		switch(kind){
   
 			case 'p':
 				
 				for (int i = 0; i < polygonObjektList.size(); i++){
 					p.noStroke();
-					p.fill(0,0,255,50);
+					p.fill(Styles.pointCol);
 					
 					PolygonObjekte po_p = polygonObjektList.get(i);
 					po_p.update();
@@ -51,8 +52,8 @@ public class PolygonObjektManager extends AbstractLayer implements Layer{
 				p.beginShape();
 				
 				for (int i = 0; i < polygonObjektList.size(); i++){
-					p.stroke(255, 0, 0,50);
-					p.strokeWeight(5);
+					p.stroke(Styles.lineCol);
+					p.strokeWeight(Styles.strokeW*2.5f);
 					p.noFill();
 					
 					PolygonObjekte po_l = polygonObjektList.get(i);
@@ -67,8 +68,8 @@ public class PolygonObjektManager extends AbstractLayer implements Layer{
 				p.beginShape();
 				
 				for (int i = 0; i < polygonObjektList.size(); i++){
-					p.stroke(0, 0, 255, 50);
-					p.strokeWeight(5);
+					p.stroke(Styles.lineCol);
+					p.strokeWeight(Styles.strokeW*2.5f);
 					p.noFill();
 					
 					PolygonObjekte po_r = polygonObjektList.get(i);
@@ -84,14 +85,16 @@ public class PolygonObjektManager extends AbstractLayer implements Layer{
 				
 				for (int i = 0; i < polygonObjektList.size(); i++){
 					p.noStroke();
-					p.fill(255, 0, 0, 20);
-					
+					p.fill(Styles.polyCol);
+					p.stroke(Styles.lineCol);
+					p.strokeWeight(Styles.strokeW);
+
 					PolygonObjekte po_s = polygonObjektList.get(i);
 					po_s.update();
 					
 					p.vertex(po_s.nowPoint.x, po_s.nowPoint.y);	
 				}				
-				p.endShape();
+				p.endShape(p.CLOSE);
 			break;
 		}
 	}
