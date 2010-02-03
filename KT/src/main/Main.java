@@ -97,6 +97,7 @@ public class Main extends PApplet implements TuioListener{
 	public int polygonObjektManagerCounter = 0;
 	public char kindOfPolygonObjekt;
 	public boolean firstPoly =  true;
+	public boolean deletePolys = false;
 	
 	public void setup(){
 
@@ -215,6 +216,11 @@ public class Main extends PApplet implements TuioListener{
 			layer.draw();
 		}
 		
+		if(deletePolys){
+			polygonObjektManagerList.clear();
+			polygonObjektManagerCounter = 0;
+			deletePolys = false;
+		}
   		for (int i = 0; i < polygonObjektManagerList.size(); i++){
   			polygonObjektManagerList.get(i).draw();
    		}
@@ -326,6 +332,9 @@ public class Main extends PApplet implements TuioListener{
 			polygonObjektManagerCounter++;	
 			firstPoly = true;
 			
+		}
+		if (key == 'd' || key == 'D') {
+			deletePolys = true;
 		}
 	}
 	
@@ -439,7 +448,11 @@ public class Main extends PApplet implements TuioListener{
 						polygonObjektManagerList.add(new PolygonObjektManager(this,kindOfPolygonObjekt,container));
 						firstPoly = false;
 					}
-					polygonObjektManagerList.get(polygonObjektManagerCounter).addObjekt(x,y);		
+					try{
+					polygonObjektManagerList.get(polygonObjektManagerCounter).addObjekt(x,y);	
+					}catch(Exception e){
+						e.printStackTrace();
+					}
 				}
 			}
 		}
