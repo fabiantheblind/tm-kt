@@ -147,8 +147,8 @@ public class Main extends PApplet implements TuioListener{
 		
 		
 		
-		c1.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
-		c1.pmap.mapManipulation.zoomToLevel(5);
+		c1.pmap.mapManipulation.panCenterTo(new Location(34.22663545370097f, -118.18529605865479f));
+		c1.pmap.mapManipulation.zoomToLevel(4);
 		c1.pmap.map.setMapProvider(new SatelliteMapProvider());
 //		c2.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
 //		c2.pmap.mapManipulation.zoomToLevel(3);
@@ -330,7 +330,7 @@ public class Main extends PApplet implements TuioListener{
 						container.pmap.mapManipulation.zoomToLevel(3);
 						break;
 					case 12:
-						container.pmap.map.setMapProvider(new Microsoft.HybridProvider());
+						container.pmap.map.setMapProvider(new Microsoft.AerialProvider());
 						container.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
 						container.pmap.mapManipulation.zoomToLevel(5);
 						break;

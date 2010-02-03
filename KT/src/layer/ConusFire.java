@@ -50,6 +50,8 @@ public class ConusFire{
 //		p.stroke(Styles.colShadow);
 		p.noStroke();
 		p.shape(Styles.fire,point.x+Styles.shadowOffset,point.y+Styles.shadowOffset,Styles.iconSize,Styles.iconSize);
+		
+		
 		p.fill(Styles.fireCol1);
 		p.stroke(Styles.kontur);
 		p.strokeWeight(Styles.strokeW);	
