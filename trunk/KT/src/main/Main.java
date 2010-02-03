@@ -191,7 +191,7 @@ public class Main extends PApplet implements TuioListener{
 		hos = new StationsManager(this, 2);
 		hos.init();
 		
-		cfm.addContainer(c1);
+//		cfm.addContainer(c1);
 		
 		layers = new ArrayList<Layer>();
 		containers = new ArrayList<PMapContainer>();

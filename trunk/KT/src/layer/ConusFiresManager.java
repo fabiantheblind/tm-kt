@@ -68,37 +68,42 @@ public class ConusFiresManager extends AbstractLayer implements Layer {
 //			|| firesList.get(i).styleUrlStr.equals("#12_to_24hr_firePlacemark")
 //			|| firesList.get(i).styleUrlStr.equals("#prev_6_days_firePlacemark")
 
+			float[]lat = new float [firesList.size()];
+			float [] lon  = new float [firesList.size()];
 			for(int i = 0; i<firesList.size();i++){
-				
+			
+				  lat[i] = firesList.get(i).location.lat;
+				  lon[i] = firesList.get(i).location.lat;
+
+			if(( lat[i]>31f||lat[i]<41 )&&(lon[i]> -125f)){
+			
+
 			if(firesList.get(i).styleUrlStr.equals("#0_to_12hr_firePlacemark")){
-				p.shapeMode(p.CENTER);
-				Styles.fire.disableStyle();
-				p.fill(Styles.fireCol1);
-				p.stroke(Styles.kontur);
-				p.strokeWeight(Styles.strokeW);	
+	
 	 		(firesList.get(i)).drawFire(listener);
 			}
-			if(firesList.get(i).styleUrlStr.equals("#12_to_24hr_firePlacemark")){
-				p.shapeMode(p.CENTER);
-				Styles.fire.disableStyle();
-				p.fill(Styles.fireCol2);
-				p.stroke(Styles.kontur);
-				p.strokeWeight(Styles.strokeW);	
-	 		(firesList.get(i)).drawFire(listener);
-			}
-			if(firesList.get(i).styleUrlStr.equals("#prev_6_days_firePlacemark")){
-				p.shapeMode(p.CENTER);
-				Styles.fire.disableStyle();
-				p.fill(Styles.fireCol3);
-				p.stroke(Styles.kontur);
-				p.strokeWeight(Styles.strokeW);	
-	 		(firesList.get(i)).drawFire(listener);
-			}
+//			if(firesList.get(i).styleUrlStr.equals("#12_to_24hr_firePlacemark")){
+//				p.shapeMode(p.CENTER);
+//				Styles.fire.disableStyle();
+//				p.fill(Styles.fireCol2);
+//				p.stroke(Styles.kontur);
+//				p.strokeWeight(Styles.strokeW);	
+//	 		(firesList.get(i)).drawFire(listener);
+//			}
+//			if(firesList.get(i).styleUrlStr.equals("#prev_6_days_firePlacemark")){
+//				p.shapeMode(p.CENTER);
+//				Styles.fire.disableStyle();
+//				p.fill(Styles.fireCol3);
+//				p.stroke(Styles.kontur);
+//				p.strokeWeight(Styles.strokeW);	
+//	 		(firesList.get(i)).drawFire(listener);
+//			}
 //	 		(firesList.get(i)).drawFire(listener);
 			
 
 			
 			}
+		}
 	}
 	
 	public void update(){
