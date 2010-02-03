@@ -44,11 +44,13 @@ public class ConusFire{
 	    		}
 		p.smooth();
 //	Point2f myPoint = map.locationPoint(location);
-		p.shapeMode(p.CENTER);
-		Styles.fire.disableStyle();
+//		p.shapeMode(p.CENTER);
+//		Styles.fire.disableStyle();
+//		p.fill(Styles.fireCol1);
+//		p.stroke(Styles.kontur);
+//		p.strokeWeight(Styles.strokeW);
 		p.shape(Styles.fire,point.x,point.y,Styles.iconSize,Styles.iconSize);
-
-//	p.ellipse(point.x, point.y, 10, 10);
+//	p.ellipse(point.x, point.y, 20, 20);
 //	float tw = p.textWidth(styleUrlStr);
 //	p.rect(point.x + 9, point.y - 21, tw + 6 , 18);
 //	p.line(point.x, point.y, point.x + 8, point.y - 3);
