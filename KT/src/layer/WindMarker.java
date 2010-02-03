@@ -153,7 +153,7 @@ public class WindMarker {
 		}
 
 		p.fill(myH,myS,myB);
-		p.stroke(0);		
+		// p.stroke(0);		
 	}
 	
 	public void tempColour_03(){
