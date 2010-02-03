@@ -168,6 +168,7 @@ public class Main extends PApplet implements TuioListener{
 		 */
 
 		cfm = new  ConusFiresManager(this);
+		cfm.init();
 		wsm = new WeatherStationManager(this);
 		wsm.init();
 		wmm = new WindMarkerManager(this,(WeatherStationManager)wsm);
@@ -180,8 +181,6 @@ public class Main extends PApplet implements TuioListener{
 		hos = new StationsManager(this, 2);
 		hos.init();
 		
-		cfm.addContainer(c1);
-		
 		layers = new ArrayList<Layer>();
 		containers = new ArrayList<PMapContainer>();
 		layers.add(wmm);
@@ -190,10 +189,13 @@ public class Main extends PApplet implements TuioListener{
 		layers.add(fs);
 		layers.add(cfm);
 		containers.add(c1);
+		cfm.addContainer(c1);
+
 	}
 	
 	public void draw(){
 		background(Styles.colBG);
+
 		fill(Styles.col1);
 		stroke(Styles.col1);
 		rect( 0, 50/faktor, width, height-116/faktor- 50/faktor);
@@ -214,7 +216,18 @@ public class Main extends PApplet implements TuioListener{
 		/* .. und  Trennlinien zeichnen */
 		for (int i = 0; i < seperator.length; i++) {
 			seperator[i].draw();
-		}		
+	}
+//		
+//		wsm.draw();
+//		wmm.draw();
+//		cfm.draw();
+//		ps.draw();
+////		doesnt work dont know why????
+////		caam.draw();
+//		
+//=======
+//		}		
+//>>>>>>> .r80
 	}
 	
 	@Override
