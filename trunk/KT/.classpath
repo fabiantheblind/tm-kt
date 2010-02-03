@@ -4,7 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="libraries/core.jar"/>
 	<classpathentry kind="lib" path="libraries/mimoa.jar"/>
-	<classpathentry kind="lib" path="libraries/mmmLib.jar"/>
 	<classpathentry kind="lib" path="libraries/opengl.jar"/>
 	<classpathentry kind="lib" path="libraries/glgraphics.jar"/>
 	<classpathentry kind="lib" path="libraries/gluegen-rt.jar"/>
@@ -16,5 +15,6 @@
 	<classpathentry kind="lib" path="libraries/libTUIO.jar"/>
 	<classpathentry kind="lib" path="libraries/TUIO.jar"/>
 	<classpathentry kind="lib" path="libraries/poi-3.2-FINAL-20081019.jar"/>
+	<classpathentry kind="lib" path="libraries/mmmLib.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
