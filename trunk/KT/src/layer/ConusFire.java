@@ -35,7 +35,6 @@ public class ConusFire{
 	
 	  public void drawFire(ArrayList<Container> listener){
 
-//		myFireIcon = p.loadShape("../data/fire.svg");
 
 		   	for(Container container : listener){
 	    		Point2f point = container.locationPoint(location);
