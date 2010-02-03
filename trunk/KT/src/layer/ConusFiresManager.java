@@ -52,6 +52,7 @@ public class ConusFiresManager extends AbstractLayer implements Layer {
 		        			coordinateRawSplitter=p.split(latLonStringCoordinates,",");
 						Location myConusFireLoc = new Location(Float.parseFloat(coordinateRawSplitter[1]), Float.parseFloat(coordinateRawSplitter[0]));
 				ConusFire myConusFire  = new ConusFire(p,myConusFireLoc,"N/A",styleUrlString);
+			
 					firesList.add(myConusFire);
 		    }
 		   }
@@ -67,27 +68,35 @@ public class ConusFiresManager extends AbstractLayer implements Layer {
 //			|| firesList.get(i).styleUrlStr.equals("#12_to_24hr_firePlacemark")
 //			|| firesList.get(i).styleUrlStr.equals("#prev_6_days_firePlacemark")
 
-		
 			for(int i = 0; i<firesList.size();i++){
-//				p.println(((ConusFire)firesList.get(i)).styleUrlStr);
+				
 			if(firesList.get(i).styleUrlStr.equals("#0_to_12hr_firePlacemark")){
+				p.shapeMode(p.CENTER);
+				Styles.fire.disableStyle();
 				p.fill(Styles.fireCol1);
 				p.stroke(Styles.kontur);
 				p.strokeWeight(Styles.strokeW);	
 	 		(firesList.get(i)).drawFire(listener);
 			}
 			if(firesList.get(i).styleUrlStr.equals("#12_to_24hr_firePlacemark")){
+				p.shapeMode(p.CENTER);
+				Styles.fire.disableStyle();
 				p.fill(Styles.fireCol2);
 				p.stroke(Styles.kontur);
 				p.strokeWeight(Styles.strokeW);	
 	 		(firesList.get(i)).drawFire(listener);
 			}
 			if(firesList.get(i).styleUrlStr.equals("#prev_6_days_firePlacemark")){
+				p.shapeMode(p.CENTER);
+				Styles.fire.disableStyle();
 				p.fill(Styles.fireCol3);
 				p.stroke(Styles.kontur);
 				p.strokeWeight(Styles.strokeW);	
 	 		(firesList.get(i)).drawFire(listener);
 			}
+//	 		(firesList.get(i)).drawFire(listener);
+			
+
 			
 			}
 	}
