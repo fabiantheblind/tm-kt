@@ -12,6 +12,7 @@ import layer.WeatherStationManager;
 import layer.WindMarkerManager;
 
 import processing.core.PApplet;
+import processing.core.PConstants;
 //import processing.core.PConstants;
 import utils.Menue;
 import utils.MyMapProvider;
@@ -96,49 +97,18 @@ public class Main extends PApplet implements TuioListener{
 	
 	TuioClient tuioClient;
 //	Menue menue;
-	PMapContainer c1,c2,c3;
+	PMapContainer c1;
 	ArrayList<PMapContainer> containers;
 	
 	public void setup(){
-//	Styles.setPApplet(this);
-//	Styles.createColors();
-//	Styles.createFont();
-	Styles.setPApplet(this);
-	Styles.create();
-//	menue = new Menue(this);
-//	menue.loadData();
 
-//		size(1920, 1080, GLConstants.GLGRAPHICS );
+		Styles.setPApplet(this);
+		Styles.create();
 
 		size(SIZE_X, SIZE_Y, P3D);
 		tuioClient = new TuioClient();
 		tuioClient.addTuioListener(this);
 		tuioClient.connect();
-
-		
-		
-//		pmap = new PMap(this, 50, 50, 600, 400);
-//		MouseMapInteractionsHandler mih = new MouseMapInteractionsHandler(this);
-//		mih.setBoundingBox(50, 50, 600, 400);
-//		pmap.addInteractionsHandler(mih);
-//		pmap.addInteractionsHandler(new KeyboardMapInteractionsHandler(this));
-//		pmap.map.setMapProvider(new Microsoft.HybridProvider());
-//
-//		pmap2 = new PMap(this, 600, 100, 100, 100);
-//		pmap2.mapManipulation.zoom(2);
-//		pmap2.addInteractionsHandler(new MouseMapInteractionsHandler(this));
-//		pmap2.map.setMapProvider(new Microsoft.HybridProvider());
-//
-//		debugDisplay = new DebugDisplay(this, pmap.map, 10, 440, 260, 140);
-//
-//		// Set start point
-//		// Upper left corner of Scotland at map origin (center: "a" in "Wadden Sea")
-//		pmap.mapManipulation.panCenterTo(new Location(53.809f, 7.954f));
-//		pmap.mapManipulation.zoomToLevel(5);
-//		pmap2.mapManipulation.panCenterTo(new Location(53.809f, 7.954f));
-//		pmap2.mapManipulation.zoomToLevel(3);
-//		  
-//		
 		
 		/* Initialisierung der Ränder */
 		top = new Seperator(this);
@@ -158,10 +128,11 @@ public class Main extends PApplet implements TuioListener{
 		seperator = new Seperator[4];
 		seperator[0] = new Seperator(this,top,buttom);
 		seperator[0].vertical = true;
-		seperator[0].setPoints(new Point(640/faktor,50/faktor), new Point(640/faktor,height-116/faktor));
+//		seperator[0].setPoints(new Point(640/faktor,50/faktor), new Point(640/faktor,height-116/faktor));
+		seperator[0].setPoints(new Point(0,50/faktor), new Point(0,height-116/faktor));
 		seperator[1] = new Seperator(this,left,seperator[0]);
 		seperator[1].vertical = false;
-		seperator[1].setPoints(new Point(0,456/faktor), new Point(640/faktor,456/faktor));
+		seperator[1].setPoints(new Point(0,456/faktor), new Point(0,456/faktor));
 		seperator[2] = new Seperator(this,top,buttom);
 		seperator[2].vertical = true;
 		seperator[2].setPoints(new Point(width,50/faktor), new Point(width,height-116/faktor));
@@ -172,18 +143,21 @@ public class Main extends PApplet implements TuioListener{
 		Seperator[] s4c1 = {top,seperator[0],buttom,seperator[2]};
 		c1 = new PMapContainer(this, s4c1,tuioClient);
 		Seperator[] s4c2 = {top,left,seperator[1],seperator[0]};
-		c2 = new PMapContainer(this, s4c2,tuioClient);
+//		c2 = new PMapContainer(this, s4c2,tuioClient);
 		Seperator[] s4c3 = {seperator[1],left,buttom,seperator[0]};
-		c3 = new PMapContainer(this, s4c3,tuioClient);
+//		c3 = new PMapContainer(this, s4c3,tuioClient);
+		Seperator[] s4c4 = {top,seperator[2],seperator[3],right};
+		Seperator[] s4c5 = {seperator[3],seperator[2],buttom,right};
+		
 		
 		c1.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
 		c1.pmap.mapManipulation.zoomToLevel(5);
 		c1.pmap.map.setMapProvider(new OpenStreetMap.CloudmadeProvider(CLOUDMADE_API_KEY, CLOUDMADE_STYLE_ID));
-		c2.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
-		c2.pmap.mapManipulation.zoomToLevel(3);
-		c3.pmap.map.setMapProvider(new MyMapProvider());
-		c3.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
-		c3.pmap.mapManipulation.zoomToLevel(3);
+//		c2.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
+//		c2.pmap.mapManipulation.zoomToLevel(3);
+//		c3.pmap.map.setMapProvider(new MyMapProvider());
+//		c3.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
+//		c3.pmap.mapManipulation.zoomToLevel(3);
 		
 		
 		/**Layer erstellen und ihnen 
@@ -206,6 +180,8 @@ public class Main extends PApplet implements TuioListener{
 		hos = new StationsManager(this, 2);
 		hos.init();
 		
+		cfm.addContainer(c1);
+		
 		layers = new ArrayList<Layer>();
 		containers = new ArrayList<PMapContainer>();
 		layers.add(wmm);
@@ -214,12 +190,13 @@ public class Main extends PApplet implements TuioListener{
 		layers.add(fs);
 		layers.add(cfm);
 		containers.add(c1);
-		containers.add(c2);
-		containers.add(c3);
 	}
 	
 	public void draw(){
 		background(Styles.colBG);
+		fill(Styles.col1);
+		stroke(Styles.col1);
+		rect( 0, 50/faktor, width, height-116/faktor- 50/faktor);
 		
 		for(PMapContainer container : containers){
 			container.draw();
@@ -286,26 +263,26 @@ public class Main extends PApplet implements TuioListener{
 	}
 	
 	public void keyPressed(){
-		switch(key){
-			case '1':
-				c2.isActive = false;
-				c3.isActive = false;
-				seperator[0].setPoints(new Point(width,20), new Point(width,height));
-				seperator[1].setPoints(new Point(400,height), new Point(800,height));
-				break;
-			case '2':
-				c2.isActive=true;
-				c3.isActive = false;
-				seperator[0].setPoints(new Point((int)(width*0.75),20), new Point((int)(width*0.75),height));
-				seperator[1].setPoints(new Point(400,height), new Point(800,height));
-				break;
-			case '3':
-				c2.isActive = true;
-				c3.isActive = true;
-				seperator[0].setPoints(new Point((int)(width*0.75),20), new Point((int)(width*0.75),height));
-				seperator[1].setPoints(new Point((int)(width*0.75),height/2), new Point(800,height/2));
-				break;
-		}
+//		switch(key){
+//			case '1':
+//				c2.isActive = false;
+//				c3.isActive = false;
+//				seperator[0].setPoints(new Point(width,20), new Point(width,height));
+//				seperator[1].setPoints(new Point(400,height), new Point(800,height));
+//				break;
+//			case '2':
+//				c2.isActive=true;
+//				c3.isActive = false;
+//				seperator[0].setPoints(new Point((int)(width*0.75),20), new Point((int)(width*0.75),height));
+//				seperator[1].setPoints(new Point(400,height), new Point(800,height));
+//				break;
+//			case '3':
+//				c2.isActive = true;
+//				c3.isActive = true;
+//				seperator[0].setPoints(new Point((int)(width*0.75),20), new Point((int)(width*0.75),height));
+//				seperator[1].setPoints(new Point((int)(width*0.75),height/2), new Point(800,height/2));
+//				break;
+//		}
 	}
 	
 	public void addTuioObject(TuioObject tObj){

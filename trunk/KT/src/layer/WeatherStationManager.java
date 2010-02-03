@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.xml.XMLElement;
-import utils.Container;
 
 import com.modestmaps.geo.Location;
 
@@ -65,7 +64,7 @@ public class WeatherStationManager extends AbstractLayer implements Layer{
 //		  Here u can write Textfiles
 //		  output = p.createWriter("../data/currentWeatherTest.xml");
 		  //RSS FEEDS lesen
-		  for(int i = 0; i< stationsList.size();i++){
+		  for(int i = 0; i<1 /*stationsList.size()*/;i++){
 					rssStation.add(new XMLElement(p,stationsList.get(i).xml));
 					
 //					p.println(rssStation.get(i));
