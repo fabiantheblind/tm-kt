@@ -24,6 +24,7 @@ import TUIO.TuioTime;
 
 import com.modestmaps.geo.Location;
 import com.modestmaps.providers.Microsoft;
+//import com.modestmaps.providers.OpenStreetMap;
 
 import de.fhpotsdam.pmaps.PMap;
 import de.fhpotsdam.pmaps.utils.DebugDisplay;
@@ -154,8 +155,8 @@ public class Main extends PApplet implements TuioListener{
 		
 		
 		
-		c1.pmap.mapManipulation.panCenterTo(new Location(34.22663545370097f, -118.18529605865479f));
-		c1.pmap.mapManipulation.zoomToLevel(4);
+		c1.pmap.mapManipulation.panCenterTo(new Location(34.14590795200977f, -118.25546264648438f));
+		c1.pmap.mapManipulation.zoomToLevel(3);
 		c1.pmap.map.setMapProvider(new SatelliteMapProvider());
 //		c2.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
 //		c2.pmap.mapManipulation.zoomToLevel(3);
@@ -185,6 +186,9 @@ public class Main extends PApplet implements TuioListener{
 		hos = new StationsManager(this, 2);
 		hos.init();
 		
+
+//		cfm.addContainer(c1);
+
 		layers = new ArrayList<Layer>();
 		containers = new ArrayList<PMapContainer>();
 		layers.add(wmm);
@@ -363,7 +367,7 @@ public class Main extends PApplet implements TuioListener{
 					switch(id){
 					case 13:
 						container.pmap.map.setMapProvider(new Microsoft.RoadProvider());
-						container.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
+						container.pmap.mapManipulation.panCenterTo(new Location(34.14590795200977f, -118.25546264648438f));
 						container.pmap.mapManipulation.zoomToLevel(5);
 						break;
 					case 11:
@@ -373,12 +377,12 @@ public class Main extends PApplet implements TuioListener{
 						break;
 					case 12:
 						container.pmap.map.setMapProvider(new Microsoft.AerialProvider());
-						container.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
+						container.pmap.mapManipulation.panCenterTo(new Location(34.14590795200977f, -118.25546264648438f));
 						container.pmap.mapManipulation.zoomToLevel(5);
 						break;
 					case 10:
 //						container.pmap.map.setMapProvider(new OpenStreetMap.CloudmadeProvider(CLOUDMADE_API_KEY, CLOUDMADE_STYLE_ID));
-						container.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
+						container.pmap.mapManipulation.panCenterTo(new Location(34.14590795200977f, -118.25546264648438f));
 						container.pmap.mapManipulation.zoomToLevel(5);
 						break;
 					}
