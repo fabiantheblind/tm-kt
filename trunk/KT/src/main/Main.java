@@ -177,7 +177,7 @@ public class Main extends PApplet implements TuioListener{
 		 * Erben = extends => sie können alles was der AbstractLayer kann.
 		 */
 
-		cfm = new  ConusFiresManager(this);
+		cfm = new ConusFiresManager(this);
 		wsm = new WeatherStationManager(this);
 		wsm.init();
 		wmm = new WindMarkerManager(this,(WeatherStationManager)wsm);

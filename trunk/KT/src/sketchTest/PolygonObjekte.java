@@ -24,9 +24,9 @@
 //		
 //		update();
 //
-//		ellipseMode(CENTER);
-//		fill(255);
-//		ellipse(nowPoint.x, nowPoint.y,15,15);
+//		p.ellipseMode(CENTER);
+//		p.fill(255);
+//		p.ellipse(nowPoint.x, nowPoint.y,15,15);
 //	}	
 //
 //}

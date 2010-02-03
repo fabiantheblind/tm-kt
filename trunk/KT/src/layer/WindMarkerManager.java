@@ -186,6 +186,8 @@ public class WindMarkerManager extends AbstractLayer implements Layer{
 					windMarkerList.get(i).drawArrow(listener);
 			}
 			
+
+	/*		
 			for(int j = 0; j < 20; j++){
 				
 				p.noStroke();
@@ -199,15 +201,15 @@ public class WindMarkerManager extends AbstractLayer implements Layer{
 				p.fill(180, k*23, 255);
 				p.rect(20, 84 + k * 4, 20, 4);
 			}
+	*/
 		}	
 		
 		public void drawWriteTheWeather(){
-		
+			removeSelectedContainer();
 			for(int i = 0; i<windMarkerList.size();i++){
-			//Point2f myPoint = map.locationPoint((Location)((WeatherStation)stationsList.get(i)).location);
-					((WindMarker)windMarkerList.get(i)).writeTheWeather(listener);
+					windMarkerList.get(i).writeTheWeather(listener);
 			}
-			
+	/*		
 			for(int j = 0; j < 20; j++){
 				
 				p.noStroke();
@@ -221,6 +223,6 @@ public class WindMarkerManager extends AbstractLayer implements Layer{
 				p.fill(180, k*23, 255);
 				p.rect(20, 84 + k * 4, 20, 4);
 			}
+	*/
 		}
 	}
-//maybe here is missing a right curly brace
