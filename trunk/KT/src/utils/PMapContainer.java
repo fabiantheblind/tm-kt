@@ -79,11 +79,13 @@ public class PMapContainer implements Container, TuioListener{
 			y = t.getY();
 			width = r.getX() - x;
 			height = b.getY() - y;
-			
-			pmap.setMask(x, y, width, height);
-			pmap.setBoundingBox((int)x, (int)y, (int)width, (int)height);
+			if(width>4&&height>4){
+				pmap.setMask(x, y, width, height);
+				pmap.setBoundingBox((int)x, (int)y, (int)width, (int)height);
+			}
 		}
-		pmap.draw();
+		if(width>4&&height>4)
+			pmap.draw();
 	}
 	
 	public void update(){
