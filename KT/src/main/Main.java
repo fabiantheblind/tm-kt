@@ -189,7 +189,7 @@ public class Main extends PApplet implements TuioListener{
 		layers.add(fs);
 		layers.add(cfm);
 		containers.add(c1);
-		cfm.addContainer(c1);
+//		cfm.addContainer(c1);
 
 	}
 	
