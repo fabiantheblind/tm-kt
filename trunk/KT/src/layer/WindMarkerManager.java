@@ -205,24 +205,10 @@ public class WindMarkerManager extends AbstractLayer implements Layer{
 		}	
 		
 		public void drawWriteTheWeather(){
+			
 			removeSelectedContainer();
 			for(int i = 0; i<windMarkerList.size();i++){
-					windMarkerList.get(i).writeTheWeather(listener);
+				windMarkerList.get(i).writeTheWeather(listener);
 			}
-	/*		
-			for(int j = 0; j < 20; j++){
-				
-				p.noStroke();
-				p.fill(10,j*23,255);
-				p.rect(20, 84-j*4, 20, 4);
-			}
-			
-			for(int k = 0; k < 20; k++){
-				
-				p.noStroke();
-				p.fill(180, k*23, 255);
-				p.rect(20, 84 + k * 4, 20, 4);
-			}
-	*/
 		}
-	}
+}
