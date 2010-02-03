@@ -17,6 +17,11 @@ import com.modestmaps.providers.AbstractMapProvider;
 // */
 
 public class MyMapProvider extends AbstractMapProvider {
+	
+	public String TopomapType_01 = "_basemap";	// natuerlich
+	public String TopomapType_02 = "_CF";		// bunt
+	public String TopomapType_03 = "_SW";		// graustufen
+
 
   // most likely you will have mercator projection in your map and you don't want to change these
   public MyMapProvider() {
@@ -30,7 +35,8 @@ public class MyMapProvider extends AbstractMapProvider {
    * it get's a lot trickier when you need to do a more complex translation to get the right tiles
    */
   public String[] getTileUrls(Coordinate coordinate) {
-    String url = "../data/TopoMapCalifornia_SW/" + (int)coordinate.zoom +"-"+ (int)coordinate.column + "-" + (int)coordinate.row  + ".jpg";
+	  
+    String url = "../data/TopoMapCalifornia"+TopomapType_03+"/"+(int)coordinate.zoom +"-"+ (int)coordinate.column + "-" + (int)coordinate.row  + ".jpg";
     return new String[] { 
       url     };
   }

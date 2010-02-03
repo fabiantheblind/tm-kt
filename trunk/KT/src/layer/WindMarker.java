@@ -20,7 +20,7 @@ public class WindMarker {
 	public float wind_mph;
 	public String stringWind_string;
 	
-	public int dropShadow_01 = 4;
+	public int dropShadow_01 = 2;
 
 	public WindMarker(PApplet p,Location wmTheLocation, float wmTemp_f, float wmTemp_c, String wmStringTemp_c, float wmWind_degrees, float wmWind_mph, String wmStringWind_string){
 		this.p = p;
@@ -158,12 +158,13 @@ public class WindMarker {
 		float myB = 150;
 		
 		if(temp_c < 0){	
-			myR += temp_c *5;
-			myG += temp_c *5;
-			myB -= temp_c;
+			myR += temp_c *7;
+			myG += temp_c *7;
+			myB -= temp_c*2;
 			 
 		}else{
-			myB -= temp_c * 3;
+			myG -= temp_c *7;
+			myB -= temp_c * 5;
 		}
 		
 		p.fill(myR,myG,myB);
