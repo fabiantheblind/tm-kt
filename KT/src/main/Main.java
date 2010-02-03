@@ -178,6 +178,7 @@ public class Main extends PApplet implements TuioListener{
 		 */
 
 		cfm = new ConusFiresManager(this);
+		cfm.init();
 		wsm = new WeatherStationManager(this);
 		wsm.init();
 		wmm = new WindMarkerManager(this,(WeatherStationManager)wsm);
