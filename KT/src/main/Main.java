@@ -1,44 +1,31 @@
 package main;
 
-import java.awt.Container;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import layer.AirportsManager;
 import layer.ConusFiresManager;
 import layer.Layer;
 import layer.StationsManager;
 import layer.WeatherStationManager;
 import layer.WindMarkerManager;
-
 import processing.core.PApplet;
-import processing.core.PConstants;
-//import processing.core.PConstants;
 import utils.EmptyContainer;
-import utils.Menue;
 import utils.MyMapProvider;
 import utils.PMapContainer;
+import utils.SatelliteMapProvider;
 import utils.Seperator;
 import utils.Styles;
-
 import TUIO.TuioClient;
 import TUIO.TuioCursor;
 import TUIO.TuioListener;
 import TUIO.TuioObject;
-import TUIO.TuioProcessing;
 import TUIO.TuioTime;
-
-import codeanticode.glgraphics.GLConstants;
-import codeanticode.glgraphics.GLGraphics;
 
 import com.modestmaps.geo.Location;
 import com.modestmaps.providers.Microsoft;
-import com.sun.opengl.impl.GLContextLock;
 import com.modestmaps.providers.OpenStreetMap;
 
-import de.fhpotsdam.eventhandling.MyMapApplet;
 import de.fhpotsdam.pmaps.PMap;
-import de.fhpotsdam.pmaps.interactions.TUIOMapInteractionsHandler;
 import de.fhpotsdam.pmaps.utils.DebugDisplay;
 
 @SuppressWarnings("serial")
@@ -162,7 +149,7 @@ public class Main extends PApplet implements TuioListener{
 		
 		c1.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
 		c1.pmap.mapManipulation.zoomToLevel(5);
-		c1.pmap.map.setMapProvider(new OpenStreetMap.CloudmadeProvider(CLOUDMADE_API_KEY, CLOUDMADE_STYLE_ID));
+		c1.pmap.map.setMapProvider(new SatelliteMapProvider());
 //		c2.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
 //		c2.pmap.mapManipulation.zoomToLevel(3);
 //		c3.pmap.map.setMapProvider(new MyMapProvider());
@@ -190,8 +177,6 @@ public class Main extends PApplet implements TuioListener{
 		fs.init();
 		hos = new StationsManager(this, 2);
 		hos.init();
-		
-//		cfm.addContainer(c1);
 		
 		layers = new ArrayList<Layer>();
 		containers = new ArrayList<PMapContainer>();
@@ -341,7 +326,7 @@ public class Main extends PApplet implements TuioListener{
 						break;
 					case 11:
 						container.pmap.map.setMapProvider(new MyMapProvider());
-						container.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
+						container.pmap.mapManipulation.panCenterTo(new Location(34.14590795200977f, -118.25546264648438f));
 						container.pmap.mapManipulation.zoomToLevel(3);
 						break;
 					case 12:
@@ -350,7 +335,7 @@ public class Main extends PApplet implements TuioListener{
 						container.pmap.mapManipulation.zoomToLevel(5);
 						break;
 					case 10:
-						container.pmap.map.setMapProvider(new OpenStreetMap.CloudmadeProvider(CLOUDMADE_API_KEY, CLOUDMADE_STYLE_ID));
+//						container.pmap.map.setMapProvider(new OpenStreetMap.CloudmadeProvider(CLOUDMADE_API_KEY, CLOUDMADE_STYLE_ID));
 						container.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
 						container.pmap.mapManipulation.zoomToLevel(5);
 						break;
