@@ -14,6 +14,7 @@ import layer.WindMarkerManager;
 import processing.core.PApplet;
 import processing.core.PConstants;
 //import processing.core.PConstants;
+import utils.EmptyContainer;
 import utils.Menue;
 import utils.MyMapProvider;
 import utils.PMapContainer;
@@ -99,6 +100,8 @@ public class Main extends PApplet implements TuioListener{
 //	Menue menue;
 	PMapContainer c1;
 	ArrayList<PMapContainer> containers;
+	EmptyContainer empties[];
+	ArrayList<PMapContainer> newConainter = new ArrayList<PMapContainer>();
 	
 	public void setup(){
 
@@ -149,6 +152,13 @@ public class Main extends PApplet implements TuioListener{
 		Seperator[] s4c4 = {top,seperator[2],seperator[3],right};
 		Seperator[] s4c5 = {seperator[3],seperator[2],buttom,right};
 		
+		empties = new EmptyContainer[4];
+		empties[0] = new EmptyContainer(this, s4c2);
+		empties[1] = new EmptyContainer(this, s4c3);
+		empties[2] = new EmptyContainer(this, s4c4);
+		empties[3] = new EmptyContainer(this, s4c5);
+		
+		
 		
 		c1.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
 		c1.pmap.mapManipulation.zoomToLevel(5);
@@ -168,7 +178,6 @@ public class Main extends PApplet implements TuioListener{
 		 */
 
 		cfm = new  ConusFiresManager(this);
-		cfm.init();
 		wsm = new WeatherStationManager(this);
 		wsm.init();
 		wmm = new WindMarkerManager(this,(WeatherStationManager)wsm);
@@ -181,6 +190,8 @@ public class Main extends PApplet implements TuioListener{
 		hos = new StationsManager(this, 2);
 		hos.init();
 		
+		cfm.addContainer(c1);
+		
 		layers = new ArrayList<Layer>();
 		containers = new ArrayList<PMapContainer>();
 		layers.add(wmm);
@@ -189,17 +200,16 @@ public class Main extends PApplet implements TuioListener{
 		layers.add(fs);
 		layers.add(cfm);
 		containers.add(c1);
-//		cfm.addContainer(c1);
-
 	}
 	
 	public void draw(){
 		background(Styles.colBG);
-
 		fill(Styles.col1);
 		stroke(Styles.col1);
 		rect( 0, 50/faktor, width, height-116/faktor- 50/faktor);
 		
+		containers.addAll(newConainter);
+		newConainter.clear();
 		for(PMapContainer container : containers){
 			container.draw();
 		}
@@ -216,18 +226,7 @@ public class Main extends PApplet implements TuioListener{
 		/* .. und  Trennlinien zeichnen */
 		for (int i = 0; i < seperator.length; i++) {
 			seperator[i].draw();
-	}
-//		
-//		wsm.draw();
-//		wmm.draw();
-//		cfm.draw();
-//		ps.draw();
-////		doesnt work dont know why????
-////		caam.draw();
-//		
-//=======
-//		}		
-//>>>>>>> .r80
+		}		
 	}
 	
 	@Override
@@ -303,7 +302,10 @@ public class Main extends PApplet implements TuioListener{
 		int x = (int)(tObj.getX()*(float)width);
 		int y = (int)(tObj.getY()*(float)height);
 		int id = tObj.getSymbolID();
-		if(id>4 && id < 10){
+		if(id>=5 && id < 10){
+			if(true/*untern im schwarzen*/){
+				/*allen hinzufügen*/
+			}
 			for(PMapContainer container : containers){
 				if(container.isInside(x, y)){
 					switch(id){
@@ -323,6 +325,38 @@ public class Main extends PApplet implements TuioListener{
 						hos.addContainer(container);
 						break;
 					}
+				}
+			}
+		}else if(id>=10 && id < 14){
+			for(EmptyContainer empty : empties ){
+				if(empty.isInside(x, y)){
+					PMapContainer container = 
+						new PMapContainer(this, empty.getSeperators(), tuioClient);
+					switch(id){
+					case 13:
+						container.pmap.map.setMapProvider(new Microsoft.RoadProvider());
+						container.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
+						container.pmap.mapManipulation.zoomToLevel(5);
+						break;
+					case 11:
+						container.pmap.map.setMapProvider(new MyMapProvider());
+						container.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
+						container.pmap.mapManipulation.zoomToLevel(3);
+						break;
+					case 12:
+						container.pmap.map.setMapProvider(new Microsoft.HybridProvider());
+						container.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
+						container.pmap.mapManipulation.zoomToLevel(5);
+						break;
+					case 10:
+						container.pmap.map.setMapProvider(new OpenStreetMap.CloudmadeProvider(CLOUDMADE_API_KEY, CLOUDMADE_STYLE_ID));
+						container.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
+						container.pmap.mapManipulation.zoomToLevel(5);
+						break;
+					}
+					newConainter.add(container);
+					empty.isInUse = true;
+					
 				}
 			}
 		}
