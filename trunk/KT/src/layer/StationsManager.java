@@ -15,6 +15,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import processing.core.PApplet;
 import utils.Container;
+import utils.Styles;
 
 import com.modestmaps.core.Point2f;
 import com.modestmaps.geo.Location;
@@ -86,19 +87,41 @@ public class StationsManager extends AbstractLayer implements Layer{
 	
 				switch (typeNr){
 					case 0:
-						p.stroke(0,255,0);
-						p.fill(0,255,0);
+//						p.stroke(0,255,0);
+//						p.fill(0,255,0);
+			
 						break;
 					case 1:
-						p.stroke(255,0,0);
-						p.fill(255,0,0);
+//						p.stroke(255,0,0);
+//						p.fill(255,0,0);
+
 						break;
 					case 2:
-						p.stroke(0,0,255);
-						p.fill(0,0,255);
+//						p.stroke(0,0,255);
+//						p.fill(0,0,255);
+			
 						break;
-					}	
-				p.ellipse(x, y, 5, 5);
+					}
+				p.shapeMode(p.CENTER);
+				p.stroke(Styles.kontur);
+				p.strokeWeight(Styles.strokeW);	
+
+				if (typeNr==0){
+					Styles.policeStation.disableStyle();
+					p.fill(Styles.policeCol);
+					p.shape(Styles.policeStation,x,y,Styles.iconSize,Styles.iconSize);
+				}
+				if (typeNr==1){
+					Styles.fireStation.disableStyle();
+					p.fill(Styles.fireStCol);
+					p.shape(Styles.fireStation,x,y,Styles.iconSize,Styles.iconSize);
+				}
+				if (typeNr==2){
+					Styles.firstAid.disableStyle();
+					p.fill(Styles.medicCol);
+					p.shape(Styles.firstAid,x,y,Styles.iconSize,Styles.iconSize);
+				}
+				
 	    	}
 		}	
 	}

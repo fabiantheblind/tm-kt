@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.xml.XMLElement;
 import utils.Container;
+import utils.Styles;
 
 import com.modestmaps.geo.Location;
 
@@ -27,8 +28,7 @@ public class ConusFiresManager extends AbstractLayer implements Layer {
 		processing.xml.XMLElement [] points;
 		processing.xml.XMLElement [] coordinates;
 	
-		
-		 
+
 		String coordinateRaw;
 		String[] coordinateRawSplitter;
 		String latLonStringCoordinates;
@@ -67,12 +67,28 @@ public class ConusFiresManager extends AbstractLayer implements Layer {
 //			|| firesList.get(i).styleUrlStr.equals("#12_to_24hr_firePlacemark")
 //			|| firesList.get(i).styleUrlStr.equals("#prev_6_days_firePlacemark")
 
+		
 			for(int i = 0; i<firesList.size();i++){
 //				p.println(((ConusFire)firesList.get(i)).styleUrlStr);
 			if(firesList.get(i).styleUrlStr.equals("#0_to_12hr_firePlacemark")){
-				p.fill(255,255,0);
+				p.fill(Styles.fireCol1);
+				p.stroke(Styles.kontur);
+				p.strokeWeight(Styles.strokeW);	
 	 		(firesList.get(i)).drawFire(listener);
 			}
+			if(firesList.get(i).styleUrlStr.equals("#12_to_24hr_firePlacemark")){
+				p.fill(Styles.fireCol2);
+				p.stroke(Styles.kontur);
+				p.strokeWeight(Styles.strokeW);	
+	 		(firesList.get(i)).drawFire(listener);
+			}
+			if(firesList.get(i).styleUrlStr.equals("#prev_6_days_firePlacemark")){
+				p.fill(Styles.fireCol3);
+				p.stroke(Styles.kontur);
+				p.strokeWeight(Styles.strokeW);	
+	 		(firesList.get(i)).drawFire(listener);
+			}
+			
 			}
 	}
 	
