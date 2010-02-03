@@ -44,10 +44,12 @@ public class WindMarker {
     		}
     		
 			p.smooth();
+			p.noStroke();
+
 			
 			float arrowThickness = wind_mph/5;
 			
-			for(int m = 0; m < dropShadow_01; m++){
+			
 				
 				if(p.mouseX > arrowPoint.x - 10 && p.mouseX < arrowPoint.x + 10 && p.mouseY > arrowPoint.y - 10 && p.mouseY < arrowPoint.y + 10){
 					
@@ -55,11 +57,9 @@ public class WindMarker {
 						
 						p.pushMatrix(); 
 						p.translate(arrowPoint.x, arrowPoint.y);
-						p.smooth();
 						
-						p.noStroke();
 						p.fill(Styles.colShadow);
-						p.rect(dropShadow_01-5,dropShadow_01-41,75,106);
+						p.rect((-5 + Styles.shadowOffset ),(-41 + Styles.shadowOffset),75,106);
 						tempColour_01();								
 						p.rect(-5,-41,75,106);
 
@@ -77,36 +77,57 @@ public class WindMarker {
 				}
 				
 				else{
-					p.pushMatrix(); 
-					p.translate(arrowPoint.x -m, arrowPoint.y -m);
-				
-					arrowRotate();
-	
-					if(m < dropShadow_01 -1){
-						p.noStroke();				
-						p.fill(0,50);				
-					}
-					else{
-						tempColour_01();								
-					}
+					
+												
+					
 				
 					if (wind_mph > 0){
+						
+						
+						for(int k = 0; k < 2; k++){
+							
+							p.pushMatrix(); 
+							
+							p.translate(arrowPoint.x -(k*Styles.shadowOffset), arrowPoint.y -(k*Styles.shadowOffset));
+							arrowRotate();
+
+			
+							if(k<1){
+								
+								p.fill(Styles.colShadow);
+
+							}
+							else{
+								tempColour_01();
+
+							}
+
+							p.beginShape();
 	
-						p.beginShape();
+							p.vertex(-10 -arrowThickness, -10 -arrowThickness);
+							p.vertex(0, -5);
+							p.vertex(10 +arrowThickness, -10 -arrowThickness);
+							p.vertex(0 , 15 +arrowThickness);
+							p.vertex(-10 -arrowThickness, -10 -arrowThickness);
 	
-						p.vertex(-10 -arrowThickness, -10 -arrowThickness);
-						p.vertex(0, -5);
-						p.vertex(10 +arrowThickness, -10 -arrowThickness);
-						p.vertex(0 , 15 +arrowThickness);
-						p.vertex(-10 -arrowThickness, -10 -arrowThickness);
-	
-						p.endShape();
+							p.endShape();
+							
+							p.popMatrix();
+						}
 					}
 					else{
+						p.pushMatrix(); 
+						p.translate(arrowPoint.x, arrowPoint.y);
+						p.fill(Styles.colShadow);				
+						p.ellipse(0 + Styles.shadowOffset , 0 + Styles.shadowOffset , 15, 15);
+						
+						tempColour_01();
 						p.ellipse(0, 0, 15, 15);
-					}				
-					p.popMatrix();
-				}
+						p.popMatrix();
+					}
+					
+				
+				
 			}						
 		}
 	}
