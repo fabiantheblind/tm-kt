@@ -78,7 +78,7 @@ public class Styles {
 	col4 = p.color(88,130,223,255);
 	colBG = p.color(0,0,0,255);
 	colShadow  = p.color(5,5,5,128);
-	kontur = p.color(255,200);
+	kontur = p.color(250,50);
 	textColor = p.color(255,255,255,250);
 	fireCol1 = p.color(255,50,50,250);
 	fireCol2 = p.color(255,100,100,250);
@@ -95,7 +95,7 @@ public class Styles {
 	 polyCol= p.color(p.red(col4),p.green(col4),p.blue(col4),50);
 //	sizes and distances
 	shadowOffset = 2.5f;
-	iconSize = 15f;
+	iconSize = 17f;
 	strokeW = 1f;
 
 
