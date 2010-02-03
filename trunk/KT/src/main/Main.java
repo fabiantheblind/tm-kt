@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import layer.ConusFiresManager;
 import layer.Layer;
+import layer.PolygonObjektManager;
 import layer.StationsManager;
 import layer.WeatherStationManager;
 import layer.WindMarkerManager;
@@ -23,7 +24,6 @@ import TUIO.TuioTime;
 
 import com.modestmaps.geo.Location;
 import com.modestmaps.providers.Microsoft;
-import com.modestmaps.providers.OpenStreetMap;
 
 import de.fhpotsdam.pmaps.PMap;
 import de.fhpotsdam.pmaps.utils.DebugDisplay;
@@ -89,6 +89,13 @@ public class Main extends PApplet implements TuioListener{
 	ArrayList<PMapContainer> containers;
 	EmptyContainer empties[];
 	ArrayList<PMapContainer> newConainter = new ArrayList<PMapContainer>();
+	
+	/**POLYGONE*/
+	public boolean progressPolygonObjekt = false;
+	public ArrayList<PolygonObjektManager> polygonObjektManagerList = new ArrayList<PolygonObjektManager>();
+	public int polygonObjektManagerCounter = 0;
+	public char kindOfPolygonObjekt;
+	public boolean firstPoly =  true;
 	
 	public void setup(){
 
@@ -204,6 +211,10 @@ public class Main extends PApplet implements TuioListener{
 			layer.draw();
 		}
 		
+  		for (int i = 0; i < polygonObjektManagerList.size(); i++){
+  			polygonObjektManagerList.get(i).draw();
+   		}
+		
 		/* Ränder ... */ 
 		top.draw();
 		left.draw();
@@ -281,6 +292,37 @@ public class Main extends PApplet implements TuioListener{
 //				seperator[1].setPoints(new Point((int)(width*0.75),height/2), new Point(800,height/2));
 //				break;
 //		}
+		if (key == 'p' || key == 'P') {
+			
+			kindOfPolygonObjekt = 'p';
+			progressPolygonObjekt = true;	
+			
+		}
+		
+		if (key == 'l' || key == 'L') {
+
+			kindOfPolygonObjekt = 'l';
+			progressPolygonObjekt = true;
+		}
+		
+		if (key == 's' || key == 'S') {
+			
+			kindOfPolygonObjekt = 's';
+			progressPolygonObjekt = true;	
+		}
+		
+		if (key == 'r' || key == 'R') {
+			
+			kindOfPolygonObjekt = 'r';
+			progressPolygonObjekt = true;	
+		}
+		if (key == 'e' || key == 'E') {
+			
+			progressPolygonObjekt = false;
+			polygonObjektManagerCounter++;	
+			firstPoly = true;
+			
+		}
 	}
 	
 	public void addTuioObject(TuioObject tObj){
@@ -383,7 +425,20 @@ public class Main extends PApplet implements TuioListener{
 	}
 	public void addTuioCursor(TuioCursor tCur){
 		System.out.println("add cur");
-		pointPressed((int)(tCur.getX()*(float)width), (int)(tCur.getY()*(float)height));
+		int x = (int)(tCur.getX()*(float)width);
+		int y = (int)(tCur.getY()*(float)height);
+		pointPressed(x, y);
+		if (progressPolygonObjekt){
+			for(PMapContainer container : containers){
+				if(container.isInside(x, y)){
+					if(firstPoly){
+						polygonObjektManagerList.add(new PolygonObjektManager(this,kindOfPolygonObjekt,container));
+						firstPoly = false;
+					}
+					polygonObjektManagerList.get(polygonObjektManagerCounter).addObjekt(x,y);		
+				}
+			}
+		}
 	}
 	public void removeTuioCursor(TuioCursor tCur){
 		System.out.println("rem cur");
