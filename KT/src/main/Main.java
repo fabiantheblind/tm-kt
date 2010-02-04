@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 import layer.ConusFiresManager;
 import layer.Layer;
@@ -201,39 +202,45 @@ public class Main extends PApplet implements TuioListener{
 	}
 	
 	public void draw(){
-		background(Styles.colBG);
-		fill(Styles.col1);
-		stroke(Styles.col1);
-		rect( 0, 50/faktor, width, height-116/faktor- 50/faktor);
-		
-		containers.addAll(newConainter);
-		newConainter.clear();
-		for(PMapContainer container : containers){
-			container.draw();
+		try{
+			background(Styles.colBG);
+			fill(Styles.col1);
+			stroke(Styles.col1);
+			rect( 0, 50/faktor, width, height-116/faktor- 50/faktor);
+			
+			containers.addAll(newConainter);
+			newConainter.clear();
+			for(PMapContainer container : containers){
+				container.draw();
+			}
+			
+			for(Layer layer : layers){
+				layer.draw();
+			}
+			
+			if(deletePolys){
+				polygonObjektManagerList.clear();
+				polygonObjektManagerCounter = 0;
+				deletePolys = false;
+			}
+	  		for (int i = 0; i < polygonObjektManagerList.size(); i++){
+	  			polygonObjektManagerList.get(i).draw();
+	   		}
+			
+			/* Ränder ... */ 
+			top.draw();
+			left.draw();
+			buttom.draw();
+			right.draw();
+			/* .. und  Trennlinien zeichnen */
+			for (int i = 0; i < seperator.length; i++) {
+				seperator[i].draw();
+			}		
+		}catch(ConcurrentModificationException e){
+			e.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
 		}
-		
-		for(Layer layer : layers){
-			layer.draw();
-		}
-		
-		if(deletePolys){
-			polygonObjektManagerList.clear();
-			polygonObjektManagerCounter = 0;
-			deletePolys = false;
-		}
-  		for (int i = 0; i < polygonObjektManagerList.size(); i++){
-  			polygonObjektManagerList.get(i).draw();
-   		}
-		
-		/* Ränder ... */ 
-		top.draw();
-		left.draw();
-		buttom.draw();
-		right.draw();
-		/* .. und  Trennlinien zeichnen */
-		for (int i = 0; i < seperator.length; i++) {
-			seperator[i].draw();
-		}		
 	}
 	
 	@Override
@@ -339,16 +346,17 @@ public class Main extends PApplet implements TuioListener{
 	}
 	
 	public void addTuioObject(TuioObject tObj){
-		System.out.println("add obj with id="+tObj.getSymbolID());
+//		System.out.println("add obj with id="+tObj.getSymbolID());
 		int x = (int)(tObj.getX()*(float)width);
 		int y = (int)(tObj.getY()*(float)height);
 		int id = tObj.getSymbolID();
 		if(id>=5 && id < 10){
-			if(true/*untern im schwarzen*/){
-				/*allen hinzufügen*/
+			boolean all = false;
+			if(y>height-116/faktor/*untern im schwarzen*/){
+				all = true;
 			}
 			for(PMapContainer container : containers){
-				if(container.isInside(x, y)){
+				if(container.isInside(x, y) || all){
 					switch(id){
 					case 5:
 						cfm.addContainer(container);
@@ -404,7 +412,7 @@ public class Main extends PApplet implements TuioListener{
 		
 	}
 	public void removeTuioObject(TuioObject tObj){
-		System.out.println("rem obj with id="+tObj.getSymbolID());
+//		System.out.println("rem obj with id="+tObj.getSymbolID());
 		int x = (int)(tObj.getX()*(float)width);
 		int y = (int)(tObj.getY()*(float)height);
 		int id = tObj.getSymbolID();
@@ -455,10 +463,17 @@ public class Main extends PApplet implements TuioListener{
 					}
 				}
 			}
+		}else{
+		//WINDMARKER AKTIVIEREN
+			for(PMapContainer container: containers){
+				if(container.isInside(x, y)){
+					((WindMarkerManager)wmm).activeMarker(x, y, container);
+				}
+			}
 		}
 	}
 	public void removeTuioCursor(TuioCursor tCur){
-		System.out.println("rem cur");
+//		System.out.println("rem cur");
 		pointReleased();
 	}
 	public void updateTuioCursor(TuioCursor tCur){

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.xml.XMLElement;
+import utils.PMapContainer;
 
 import com.modestmaps.geo.Location;
 
@@ -209,6 +210,14 @@ public class WindMarkerManager extends AbstractLayer implements Layer{
 			removeSelectedContainer();
 			for(int i = 0; i<windMarkerList.size();i++){
 				windMarkerList.get(i).writeTheWeather(listener);
+			}
+		}
+		
+		public void activeMarker(int x,int y,PMapContainer container){
+			if(!listener.contains(container))
+				return;
+			for(WindMarker marker : windMarkerList){
+				marker.checkForSpezial(x, y, container);
 			}
 		}
 }

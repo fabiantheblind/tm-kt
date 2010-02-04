@@ -4,10 +4,13 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import utils.Container;
+import utils.PMapContainer;
 import utils.Styles;
 
 import com.modestmaps.core.Point2f;
 import com.modestmaps.geo.Location;
+
+import de.fhpotsdam.pmaps.PMap;
 
 public class WindMarker {
 	
@@ -19,6 +22,7 @@ public class WindMarker {
 	public float wind_degrees;
 	public float wind_mph;
 	public String stringWind_string;
+	public boolean isSpezial = false;
 	
 	public int dropShadow_01 = 2;
 
@@ -51,8 +55,8 @@ public class WindMarker {
 			
 			
 				
-				if(p.mouseX > arrowPoint.x - 10 && p.mouseX < arrowPoint.x + 10 && p.mouseY > arrowPoint.y - 10 && p.mouseY < arrowPoint.y + 10){
-					
+//				if(p.mouseX > arrowPoint.x - 10 && p.mouseX < arrowPoint.x + 10 && p.mouseY > arrowPoint.y - 10 && p.mouseY < arrowPoint.y + 10){
+				if(isSpezial){	
 					
 						
 						p.pushMatrix(); 
@@ -225,5 +229,14 @@ public class WindMarker {
 
 		float rad = PApplet.radians(wind_degrees);
 		p.rotate(rad);
-	}	 
+	}
+	
+	public void checkForSpezial(int x,int y,PMapContainer container){
+		Point2f arrowPoint = container.locationPoint(theLocation);
+	
+		if(x > arrowPoint.x - 10 && x < arrowPoint.x + 10 && y > arrowPoint.y - 10 && y < arrowPoint.y + 10){
+			isSpezial = !isSpezial;
+		}
+			
+	}
 }

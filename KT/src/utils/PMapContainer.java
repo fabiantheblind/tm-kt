@@ -169,7 +169,7 @@ public class PMapContainer implements Container, TuioListener{
 	public void addTuioObject(TuioObject tuioObject) {
 		float x = tuioObject.getScreenX(p.width);
 		float y = tuioObject.getScreenY(p.height);
-		System.out.println(x+"/"+y);
+//		System.out.println(x+"/"+y);
 		if(!isInside((int)x, (int)y) || tuioObject.getSymbolID()!= 4){
 			return;
 		}
@@ -180,7 +180,7 @@ public class PMapContainer implements Container, TuioListener{
 	public void updateTuioObject(TuioObject tuioObject) {
 		float x = tuioObject.getScreenX(p.width);
 		float y = tuioObject.getScreenY(p.height);
-		System.out.println(x+"/"+y);
+//		System.out.println(x+"/"+y);
 		if(!isInside((int)x, (int)y) || tuioObject.getSymbolID()!= 4){
 			return;
 		}
