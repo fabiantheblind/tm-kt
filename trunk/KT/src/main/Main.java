@@ -23,8 +23,11 @@ import TUIO.TuioListener;
 import TUIO.TuioObject;
 import TUIO.TuioTime;
 
+import codeanticode.glgraphics.GLConstants;
+
 import com.modestmaps.geo.Location;
 import com.modestmaps.providers.Microsoft;
+import com.modestmaps.providers.OpenStreetMap;
 //import com.modestmaps.providers.OpenStreetMap;
 
 import de.fhpotsdam.pmaps.PMap;
@@ -76,8 +79,12 @@ public class Main extends PApplet implements TuioListener{
 	boolean gui = false;
 	int picNum = 1;
 	
-	String CLOUDMADE_API_KEY = "65963b5e0821429da9f583d6f99f1da2";
-	int CLOUDMADE_STYLE_ID = 11786; // your style ID 
+	String CLOUDMADE_API_KEY = "88563529326447208964bf5be834f46c";// Fabs API key
+	String CLOUDMADE_API_KEY02 = "ebf32fe920df40e8afd071d75106f7f9";// Petes API KEY
+
+	int CLOUDMADE_STYLE_ID = 15503; // your style ID 
+	int CLOUDMADE_STYLE_IDv02 = 15397; // your style ID 
+
 	Layer wsm, wmm, cfm, caam, ps, fs, hos;
 	ArrayList<Layer> layers;
 	
@@ -159,7 +166,7 @@ public class Main extends PApplet implements TuioListener{
 		
 		c1.pmap.mapManipulation.panCenterTo(new Location(34.14590795200977f, -118.25546264648438f));
 		c1.pmap.mapManipulation.zoomToLevel(3);
-		c1.pmap.map.setMapProvider(new SatelliteMapProvider());
+		c1.pmap.map.setMapProvider(new Microsoft.RoadProvider());
 //		c2.pmap.mapManipulation.panCenterTo(new Location(38.8225909761771f, -101.07421875f));
 //		c2.pmap.mapManipulation.zoomToLevel(3);
 //		c3.pmap.map.setMapProvider(new MyMapProvider());
@@ -376,14 +383,26 @@ public class Main extends PApplet implements TuioListener{
 					}
 				}
 			}
-		}else if(id>=10 && id < 14){
+		}else if(id>=10 && id < 15){
 			for(EmptyContainer empty : empties ){
 				if(empty.isInside(x, y)){
 					PMapContainer container = 
 						new PMapContainer(this, empty.getSeperators(), tuioClient);
 					switch(id){
+					
+					case 14:
+						container.pmap.map.setMapProvider(new OpenStreetMap.CloudmadeProvider(CLOUDMADE_API_KEY, CLOUDMADE_STYLE_IDv02));
+						container.pmap.mapManipulation.panCenterTo(new Location(34.14590795200977f, -118.25546264648438f));
+						container.pmap.mapManipulation.zoomToLevel(5);
+						break;
 					case 13:
 						container.pmap.map.setMapProvider(new Microsoft.RoadProvider());
+						container.pmap.mapManipulation.panCenterTo(new Location(34.14590795200977f, -118.25546264648438f));
+						container.pmap.mapManipulation.zoomToLevel(5);
+						break;
+			
+					case 12:
+						container.pmap.map.setMapProvider(new Microsoft.AerialProvider());
 						container.pmap.mapManipulation.panCenterTo(new Location(34.14590795200977f, -118.25546264648438f));
 						container.pmap.mapManipulation.zoomToLevel(5);
 						break;
@@ -392,13 +411,8 @@ public class Main extends PApplet implements TuioListener{
 						container.pmap.mapManipulation.panCenterTo(new Location(34.14590795200977f, -118.25546264648438f));
 						container.pmap.mapManipulation.zoomToLevel(3);
 						break;
-					case 12:
-						container.pmap.map.setMapProvider(new Microsoft.AerialProvider());
-						container.pmap.mapManipulation.panCenterTo(new Location(34.14590795200977f, -118.25546264648438f));
-						container.pmap.mapManipulation.zoomToLevel(5);
-						break;
 					case 10:
-//						container.pmap.map.setMapProvider(new OpenStreetMap.CloudmadeProvider(CLOUDMADE_API_KEY, CLOUDMADE_STYLE_ID));
+						container.pmap.map.setMapProvider(new OpenStreetMap.CloudmadeProvider(CLOUDMADE_API_KEY, CLOUDMADE_STYLE_ID));
 						container.pmap.mapManipulation.panCenterTo(new Location(34.14590795200977f, -118.25546264648438f));
 						container.pmap.mapManipulation.zoomToLevel(5);
 						break;
