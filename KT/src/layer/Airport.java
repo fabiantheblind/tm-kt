@@ -40,7 +40,7 @@ public void drawAirport(ArrayList<Container> listener){
 	    		if(!container.isInside((int)point.x, (int)point.y)){
 	    			continue;
 	    		}
-	    myAirportIcon = p.loadShape("../data/AirportIcon.svg");
+//	    myAirportIcon = p.loadShape("../data/AirportIcon.svg");
         p.smooth();
 		p.shapeMode(p.CENTER);
 		myAirportIcon.disableStyle();
