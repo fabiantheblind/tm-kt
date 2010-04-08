@@ -48,14 +48,14 @@ public class ConusFire{
 		p.fill(Styles.colShadow);
 //		p.stroke(Styles.colShadow);
 		p.noStroke();
-		p.shape(Styles.fire,point.x+Styles.shadowOffset,point.y+Styles.shadowOffset,Styles.iconSize,Styles.iconSize);
-		
+	//	p.shape(Styles.fire,point.x+Styles.shadowOffset,point.y+Styles.shadowOffset,Styles.iconSize,Styles.iconSize);
+		p.ellipse(point.x+Styles.shadowOffset, point.y+Styles.shadowOffset, Styles.iconSize,Styles.iconSize);
 		
 		p.fill(Styles.fireCol1);
 		p.stroke(Styles.kontur);
 		p.strokeWeight(Styles.strokeW);	
-		p.shape(Styles.fire,point.x,point.y,Styles.iconSize,Styles.iconSize);
-
+//		p.shape(Styles.fire,point.x,point.y,Styles.iconSize,Styles.iconSize);
+		p.ellipse(point.x, point.y, Styles.iconSize, Styles.iconSize);
 //	p.ellipse(point.x, point.y, 20, 20);
 //	float tw = p.textWidth(styleUrlStr);
 //	p.rect(point.x + 9, point.y - 21, tw + 6 , 18);

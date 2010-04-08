@@ -111,33 +111,45 @@ public class StationsManager extends AbstractLayer implements Layer{
 					p.fill(Styles.colShadow);
 //					p.stroke(Styles.colShadow);
 					p.noStroke();
-					p.shape(Styles.policeStation,point.x+Styles.shadowOffset,point.y+Styles.shadowOffset,Styles.iconSize,Styles.iconSize);
+//					p.shape(Styles.policeStation,point.x+Styles.shadowOffset,point.y+Styles.shadowOffset,Styles.iconSize,Styles.iconSize);
+					p.ellipse(point.x+Styles.shadowOffset, point.y+Styles.shadowOffset, Styles.iconSize,Styles.iconSize);
+
 					p.stroke(Styles.kontur);
 					p.strokeWeight(Styles.strokeW);
 					p.fill(Styles.policeCol);
-					p.shape(Styles.policeStation,x,y,Styles.iconSize,Styles.iconSize);
+//					p.shape(Styles.policeStation,x,y,Styles.iconSize,Styles.iconSize);
+					p.ellipse(point.x, point.y, Styles.iconSize, Styles.iconSize);
+
 				}
 				if (typeNr==1){
 					
 					p.fill(Styles.colShadow);
 //					p.stroke(Styles.colShadow);
 					p.noStroke();
-					p.shape(Styles.fireStation,x+Styles.shadowOffset,y+Styles.shadowOffset,Styles.iconSize,Styles.iconSize);
+//					p.shape(Styles.fireStation,x+Styles.shadowOffset,y+Styles.shadowOffset,Styles.iconSize,Styles.iconSize);
+					p.ellipse(point.x+Styles.shadowOffset, point.y+Styles.shadowOffset, Styles.iconSize,Styles.iconSize);
+
 					p.stroke(Styles.kontur);
 					p.strokeWeight(Styles.strokeW);
 					p.fill(Styles.fireStCol);
-					p.shape(Styles.fireStation,x,y,Styles.iconSize,Styles.iconSize);
+//					p.shape(Styles.fireStation,x,y,Styles.iconSize,Styles.iconSize);
+					p.ellipse(point.x, point.y, Styles.iconSize, Styles.iconSize);
+
 				}
 				if (typeNr==2){
 					p.fill(Styles.colShadow);
 //					p.stroke(Styles.colShadow);
 					p.noStroke();
-					p.shape(Styles.firstAid,x+Styles.shadowOffset,y+Styles.shadowOffset,Styles.iconSize,Styles.iconSize);
+//					p.shape(Styles.firstAid,x+Styles.shadowOffset,y+Styles.shadowOffset,Styles.iconSize,Styles.iconSize);
+					p.ellipse(point.x+Styles.shadowOffset, point.y+Styles.shadowOffset, Styles.iconSize,Styles.iconSize);
+
 					p.stroke(Styles.kontur);
 					p.strokeWeight(Styles.strokeW);
 					
 					p.fill(Styles.medicCol);
-					p.shape(Styles.firstAid,x,y,Styles.iconSize,Styles.iconSize);
+//					p.shape(Styles.firstAid,x,y,Styles.iconSize,Styles.iconSize);
+					p.ellipse(point.x, point.y, Styles.iconSize, Styles.iconSize);
+
 				}
 				
 	    	}
