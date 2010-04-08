@@ -26,8 +26,9 @@ public class PMapContainer implements Container, TuioListener{
 	protected int canvasWidth;
 	protected int canvasHeight;
 
-	public static final String OSM_API_KEY = "65963b5e0821429da9f583d6f99f1da2";
-	public static final int OSM_STYLE_ID = 11786;
+//	public static final String OSM_API_KEY = "88563529326447208964bf5be834f46c";
+//	public static final int OSM_STYLE_ID = 15503;
+	
 	protected Seperator t,l,b,r;
 
 	public PMap pmap;
